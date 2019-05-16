@@ -14,7 +14,8 @@ create table if not exists credentials (
 );
 
 create table if not exists weeks (
-	id serial primary key
+	id serial primary key,
+	start_date date not null unique
 );
 
 create table if not exists days (
@@ -24,8 +25,8 @@ create table if not exists days (
 
 create table if not exists shifts (
 	id serial primary key,
-	startTime timestamptz not null,
-	endTime timestamptz not null
+	start_time timestamptz not null,
+	end_time timestamptz not null
 );
 
 create table if not exists week_to_day_junction (

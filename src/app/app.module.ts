@@ -12,6 +12,7 @@ import { SignupComponent } from './components/signup/signup.component';
 import { NavigationComponent } from './components/navigation/navigation.component';
 import { SignupPipe } from './pipes/signup.pipe';
 import { TrimPipePipe } from './pipes/trim-pipe.pipe';
+import { EmployeeAddDeleteComponent } from './components/employee-add-delete/employee-add-delete.component';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { TrimPipePipe } from './pipes/trim-pipe.pipe';
     SignupComponent,
     NavigationComponent,
     SignupPipe,
-    TrimPipePipe
+    TrimPipePipe,
+    EmployeeAddDeleteComponent
   ],
   imports: [
     BrowserModule,
