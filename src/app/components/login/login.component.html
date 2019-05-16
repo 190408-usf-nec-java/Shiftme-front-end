@@ -1,0 +1,25 @@
+
+
+    <p *ngIf="lastStatus === 400">Username or password is incorrect.</p>
+    <p *ngIf="lastStatus === 500">Unknown server error occurred.</p>
+    <p *ngIf="lastStatus === 0">Server unreachable.</p>
+    
+    <!-- <div class="col-3 d-flex justify-content-center " style="max-width: 40rem;"> -->
+    <div>
+      <div class="form-group center " style="max-width: 20rem;">
+      <label class="form-control-label" for="username">Enter Username:</label>
+      <input class="form-control is-valid" id="username" type="text" value="correct value" [(ngModel)]="username">
+     <!-- <div class="valid-feedback">Success! You've done it.</div> -->
+   
+    </div>
+    <div class="form-group has-danger d-flex justify-content-center " style="max-width: 20rem;">
+      <label class="form-control-label" for="password">Enter Password</label>
+      <input class="form-control is-invalid" id="password" type="text" value="wrong value" [(ngModel)]="password">
+      <!-- <div class="invalid-feedback">Sorry, that username's taken. Try another?</div> -->
+    </div>
+  
+<div class = "d-flex justify-content-center " style="max-width: 20rem;">
+  <input type="submit" [disabled]="!formValidation()" (click)="submit()">
+  </div>
+  </div>
+

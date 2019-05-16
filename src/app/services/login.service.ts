@@ -35,10 +35,4 @@ export class LoginService {
         this.loginStatusSubject.next(err.status);
       });
   }
-  submit() {
-    this.login(this.username, this.password);
-  }
-  valid(): boolean {
-    return this.username.length > 5 && this.password.length > 8;
-  }
 }
