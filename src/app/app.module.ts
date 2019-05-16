@@ -10,6 +10,8 @@ import { CookieService } from 'ngx-cookie-service';
 import { SignupComponent } from './components/signup/signup.component';
 import { NavigationComponent } from './components/navigation/navigation.component';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
+import { SignupPipe } from './pipes/signup.pipe';
+import { TrimPipePipe } from './pipes/trim-pipe.pipe';
 
 
 @NgModule({
@@ -17,7 +19,9 @@ import { CollapseModule } from 'ngx-bootstrap/collapse';
     AppComponent,
     LoginComponent,
     SignupComponent,
-    NavigationComponent
+    NavigationComponent,
+    SignupPipe,
+    TrimPipePipe
   ],
   imports: [
     BrowserModule,
