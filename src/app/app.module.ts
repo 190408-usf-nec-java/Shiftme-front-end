@@ -10,6 +10,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { CookieService } from 'ngx-cookie-service';
 import { SignupComponent } from './components/signup/signup.component';
 import { NavigationComponent } from './components/navigation/navigation.component';
+import { SignupPipe } from './pipes/signup.pipe';
+import { TrimPipePipe } from './pipes/trim-pipe.pipe';
 
 
 @NgModule({
@@ -17,7 +19,9 @@ import { NavigationComponent } from './components/navigation/navigation.componen
     AppComponent,
     LoginComponent,
     SignupComponent,
-    NavigationComponent
+    NavigationComponent,
+    SignupPipe,
+    TrimPipePipe
   ],
   imports: [
     BrowserModule,
