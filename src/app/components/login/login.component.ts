@@ -29,12 +29,29 @@ export class LoginComponent implements OnInit {
       this.loginResponse.unsubscribe();
     }
   }
-  formValidation(): boolean {
-    return this.username.length > 5 && this.password.length > 8;
+  passwordValid(): boolean {
+    return this.password.length > 8;
   }
-
+  userValid(): boolean {
+    return this.username.length > 5;
+  }
   submit() {
     this.loginService.login(this.username, this.password);
   }
+  validationClassesForUser(): string {
+    if (this.userValid()) {
+      return 'form-control is-valid col-12';
+    } else {
+      return 'form-control is-invalid col-12'
+    }
+  }
+  validationClassesForPassword(): string {
+    if (this.passwordValid()) {
+      return 'form-control is-valid col-12';
+    } else {
+      return 'form-control is-invalid col-12'
+    }
+  }
+  
 
 }

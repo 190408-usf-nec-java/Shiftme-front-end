@@ -5,11 +5,11 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
 import { LoginService } from './services/login.service';
-import { HttpClient } from 'selenium-webdriver/http';
 import { HttpClientModule } from '@angular/common/http';
 import { CookieService } from 'ngx-cookie-service';
 import { SignupComponent } from './components/signup/signup.component';
 import { NavigationComponent } from './components/navigation/navigation.component';
+import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { SignupPipe } from './pipes/signup.pipe';
 import { TrimPipePipe } from './pipes/trim-pipe.pipe';
 import { EmployeeAddDeleteComponent } from './components/employee-add-delete/employee-add-delete.component';
@@ -29,8 +29,8 @@ import { EmployeeAddDeleteComponent } from './components/employee-add-delete/emp
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
-    
+    HttpClientModule,
+    CollapseModule
   ],
   providers: [CookieService],
   bootstrap: [AppComponent]
