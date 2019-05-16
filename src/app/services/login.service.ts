@@ -16,7 +16,7 @@ export class LoginService {
 
   username: string;
   password: string;
-
+  private loggedIn: boolean;
 
   login(username: string, password: string): void {
     const payload = {
@@ -34,5 +34,11 @@ export class LoginService {
       }, err => {
         this.loginStatusSubject.next(err.status);
       });
+  }
+  getLoggedIn(): boolean {
+    return this.loggedIn;
+  }
+  setLoggedIn(loggedIn: boolean) {
+    this.loggedIn = loggedIn;
   }
 }

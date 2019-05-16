@@ -9,6 +9,8 @@ export class NavigationComponent implements OnInit {
 
   constructor() { }
 
+  isCollapsed = false;
+
   ngOnInit() {
   }
 

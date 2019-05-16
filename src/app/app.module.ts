@@ -5,11 +5,11 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
 import { LoginService } from './services/login.service';
-import { HttpClient } from 'selenium-webdriver/http';
 import { HttpClientModule } from '@angular/common/http';
 import { CookieService } from 'ngx-cookie-service';
 import { SignupComponent } from './components/signup/signup.component';
 import { NavigationComponent } from './components/navigation/navigation.component';
+import { CollapseModule } from 'ngx-bootstrap/collapse';
 
 
 @NgModule({
@@ -23,8 +23,8 @@ import { NavigationComponent } from './components/navigation/navigation.componen
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
-    
+    HttpClientModule,
+    CollapseModule
   ],
   providers: [CookieService],
   bootstrap: [AppComponent]
