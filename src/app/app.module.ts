@@ -13,6 +13,7 @@ import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { SignupPipe } from './pipes/signup.pipe';
 import { TrimPipePipe } from './pipes/trim-pipe.pipe';
 import { EmployeeAddDeleteComponent } from './components/employee-add-delete/employee-add-delete.component';
+import { BuisnessPageComponent } from './components/buisness-page/buisness-page.component';
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import { EmployeeAddDeleteComponent } from './components/employee-add-delete/emp
     NavigationComponent,
     SignupPipe,
     TrimPipePipe,
-    EmployeeAddDeleteComponent
+    EmployeeAddDeleteComponent,
+    BuisnessPageComponent
   ],
   imports: [
     BrowserModule,
