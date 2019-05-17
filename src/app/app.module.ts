@@ -12,6 +12,7 @@ import { NavigationComponent } from './components/navigation/navigation.componen
 import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { SignupPipe } from './pipes/signup.pipe';
 import { TrimPipePipe } from './pipes/trim-pipe.pipe';
+import { ShiftsComponent } from './components/shifts/shifts.component';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { TrimPipePipe } from './pipes/trim-pipe.pipe';
     SignupComponent,
     NavigationComponent,
     SignupPipe,
-    TrimPipePipe
+    TrimPipePipe,
+    ShiftsComponent
   ],
   imports: [
     BrowserModule,

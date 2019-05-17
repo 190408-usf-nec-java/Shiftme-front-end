@@ -1,0 +1,6 @@
+<section class="col-12 bg-secondary shifts-wrapper d-flex flex-row">
+  <h1 class="h1 text-center text-white">Shifts</h1>
+  <div class="col-12 col-lg-1 day bg-light" *ngFor="let day of currentWeek.days">
+    <div *ngFor="let shift of day.shifts" class="shift bg-secondary"></div>
+  </div>
+</section>
