@@ -1,32 +1,49 @@
 .day{
-    height: 70vh;
-}
-.shifts-wrapper{
-    padding-bottom: 30px;
+    height: 72vh;
+    width: 100%;
+    margin: 0 1px;
 }
 .shift {
-    height: 33%;
     width: 100%;
-    border: solid 1px #000;
+    margin: 1px 0;
 }
-.item {
-    font-size: 1rem;
+.day-date{
+    width: 100%;
 }
-
-@include media-breakpoint-up(sm) {
-    html {
-        font-size: 1.2rem;
+.hours{
+    height: 72vh;
+}
+.hours>table>tbody>tr>td {
+    font-size: .7rem;
+    box-sizing: border-box;
+    color: #fff;
+}
+.hours>table>tbody>tr {
+    border-top: solid 1px #fff;
+}
+.hours>table {
+    height: 100%;
+}
+.hours>table>tbody {
+    height: 100%;
+}
+.lasttr{
+    border-bottom: solid 1px #fff;
+}
+@media (min-width: 576px) {
+    
+}
+@media (min-width: 768px) { 
+    .day{
+        width: 14.7%;
+    }
+    .day-date{
+        width: 14.7%;
     }
 }
+@media (min-width: 992px) {
 
-@include media-breakpoint-up(md) {
-    html {
-        font-size: 1.4rem;
-    }
 }
+@media (min-width: 1200px) {
 
-@include media-breakpoint-up(lg) {
-    html {
-        font-size: 1.6rem;
-    }
 }

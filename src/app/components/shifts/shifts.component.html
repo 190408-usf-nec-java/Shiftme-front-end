@@ -1,6 +1,122 @@
-<section class="col-12 bg-secondary shifts-wrapper d-flex flex-row">
-  <h1 class="h1 text-center text-white">Shifts</h1>
-  <div class="col-12 col-lg-1 day bg-light" *ngFor="let day of currentWeek.days">
-    <div *ngFor="let shift of day.shifts" class="shift bg-secondary"></div>
+<section class="col-12 bg-secondary">
+  <div class="col-12 d-flex flex-row justify-content-between">
+    <button class="btn btn-light">Previous Week</button>
+    <h1 class="h1 text-center text-white">Shifts</h1>
+    <button class="btn btn-outline-primary">Next Week</button>
+  </div>
+  <div class="d-flex flex-row col-12">
+    <div class="col-1"></div>
+    <div class="col-11 d-flex flex-row justify-content-between">
+        <h5 *ngIf="isCurrentDay(0)" class="day-date text-center text-white">{{ currentDate }} </h5>
+        <h5 *ngIf="isCurrentDay(1)" class="day-date text-center text-white">{{ currentDate }} </h5>
+        <h5 *ngIf="isCurrentDay(2)" class="day-date text-center text-white">{{ currentDate }} </h5>
+        <h5 *ngIf="isCurrentDay(3)" class="day-date text-center text-white">{{ currentDate }} </h5>
+        <h5 *ngIf="isCurrentDay(4)" class="day-date text-center text-white">{{ currentDate }} </h5>
+        <h5 *ngIf="isCurrentDay(5)" class="day-date text-center text-white">{{ currentDate }} </h5>
+        <h5 *ngIf="isCurrentDay(6)" class="day-date text-center text-white">{{ currentDate }} </h5>
+    </div>
+  </div>
+  <div class="d-flex flex-row">
+    <div class="d-flex flex-column justify-content-between hours col-1">
+      <table>
+        <tbody>
+          <tr>
+            <td>12a</td>
+          </tr>
+          <tr>
+            <td>1a</td>
+          </tr>
+          <tr>
+            <td>2a</td>
+          </tr>
+          <tr>
+            <td>3a</td>
+          </tr>
+          <tr>
+            <td>4a</td>
+          </tr>
+          <tr>
+            <td>5a</td>
+          </tr>
+          <tr>
+            <td>6a</td>
+          </tr>
+          <tr>
+            <td>7a</td>
+          </tr>
+          <tr>
+            <td>8a</td>
+          </tr>
+          <tr>
+            <td>9a</td>
+          </tr>
+          <tr>
+            <td>10a</td>
+          </tr>
+          <tr>
+            <td>11a</td>
+          </tr>
+          <tr>
+            <td>12p</td>
+          </tr>
+          <tr>
+            <td>1p</td>
+          </tr>
+          <tr>
+            <td>2p</td>
+          </tr>
+          <tr>
+            <td>3p</td>
+          </tr>
+          <tr>
+            <td>4p</td>
+          </tr>
+          <tr>
+            <td>5p</td>
+          </tr>
+          <tr>
+            <td>6p</td>
+          </tr>
+          <tr>
+            <td>7p</td>
+          </tr>
+          <tr>
+            <td>8p</td>
+          </tr>
+          <tr>
+            <td>9p</td>
+          </tr>
+          <tr>
+            <td>10p</td>
+          </tr>
+          <tr class="lasttr">
+            <td>11p</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="shifts-wrapper col-11 d-flex flex-row justify-content-between bg-light">
+      <div *ngIf="isCurrentDay(0)" class="day">
+        <div *ngFor="let shift of currentWeek.days[0].shifts" class="shift bg-secondary" [style.height]="getHeight(shift)"></div>
+      </div>
+      <div *ngIf="isCurrentDay(1)" class="day">
+        <div *ngFor="let shift of currentWeek.days[1].shifts" class="shift bg-secondary" [style.height]="getHeight(shift)" ></div>
+      </div>
+      <div *ngIf="isCurrentDay(2)" class="day">
+        <div *ngFor="let shift of currentWeek.days[2].shifts" class="shift bg-secondary" [style.height]="getHeight(shift)"></div>
+      </div>
+      <div *ngIf="isCurrentDay(3)" class="day">
+        <div *ngFor="let shift of currentWeek.days[3].shifts" class="shift bg-secondary" [style.height]="getHeight(shift)"></div>
+      </div>
+      <div *ngIf="isCurrentDay(4)" class="day">
+        <div *ngFor="let shift of currentWeek.days[4].shifts" class="shift bg-secondary" [style.height]="getHeight(shift)"></div>
+      </div>
+      <div *ngIf="isCurrentDay(5)" class="day">
+        <div *ngFor="let shift of currentWeek.days[5].shifts" class="shift bg-secondary" [style.height]="getHeight(shift)"></div>
+      </div>
+      <div *ngIf="isCurrentDay(6)" class="day">
+        <div *ngFor="let shift of currentWeek.days[6].shifts" class="shift bg-secondary" [style.height]="getHeight(shift)"></div>
+      </div>
+    </div>
   </div>
 </section>
