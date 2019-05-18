@@ -16,7 +16,7 @@ export class ShiftsComponent implements OnInit {
   currentWeek: Week;
   currentDay = 0;
   currentDate;
-
+  weekOrDay: string;
   constructor(private shiftService: ShiftService) { }
 
   ngOnInit() {
@@ -27,7 +27,11 @@ export class ShiftsComponent implements OnInit {
     // this.currentWeek = this.shiftService.getCurrentWeek(); commented out until backend is working
     this.currentWeek = this.genSampleData();
     this.currentDate = date;
-
+    if(this.isSmallScreen()){
+      this.weekOrDay = 'Day';
+    } else {
+      this.weekOrDay = 'Week';
+    }
   }
   isSmallScreen() {
     return window.innerWidth < 768;

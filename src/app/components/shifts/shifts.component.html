@@ -1,8 +1,8 @@
 <section class="col-12 bg-secondary">
   <div class="col-12 d-flex flex-row justify-content-between">
-    <button class="btn btn-light">Previous Week</button>
+    <button click="previous()" class="btn btn-light">Previous {{ weekOrDay }}</button>
     <h1 class="h1 text-center text-white">Shifts</h1>
-    <button class="btn btn-outline-primary">Next Week</button>
+    <button (click)="next()" class="btn btn-light">Next {{ weekOrDay }}</button>
   </div>
   <div class="d-flex flex-row col-12">
     <div class="col-1"></div>
