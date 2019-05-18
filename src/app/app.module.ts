@@ -12,7 +12,8 @@ import { NavigationComponent } from './components/navigation/navigation.componen
 import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { SignupPipe } from './pipes/signup.pipe';
 import { TrimPipePipe } from './pipes/trim-pipe.pipe';
-import { EmployeeAddDeleteComponent } from './components/employee-add-delete/employee-add-delete.component';
+import { EmployeeCreateComponent } from './components/employee-create/employee-create.component';
+import { EmployeeListComponent } from './components/employee-list/employee-list.component';
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import { EmployeeAddDeleteComponent } from './components/employee-add-delete/emp
     NavigationComponent,
     SignupPipe,
     TrimPipePipe,
-    EmployeeAddDeleteComponent
+    EmployeeCreateComponent,
+    EmployeeListComponent
   ],
   imports: [
     BrowserModule,
