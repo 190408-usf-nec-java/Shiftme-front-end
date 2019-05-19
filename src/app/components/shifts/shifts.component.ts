@@ -84,8 +84,6 @@ export class ShiftsComponent implements OnInit {
 
 
 
-
-
   genSampleData(): Week {
     const bob = new User('Bob', 'Sather', 'bobsather@gmail.com', 'employee', 1,
       new Credentials('billyboy', 'aoishgoihsgohap dhgap0sygsadgh', 'bobsath'));
@@ -94,7 +92,7 @@ export class ShiftsComponent implements OnInit {
     const emps = new Array<User>(martha, bob);
     //const fShift = new Shift(8, 12, emps);
     //const sshift = new Shift(12, 16, emps);
-    const tshift = new Shift(0, 24, emps);
+    const tshift = new Shift(0, 6, emps);
     const shifts = new Array<Shift>(tshift);
     const monday = new Day(new Date('5/6/2019'), shifts);
     const tuesday = new Day(new Date('5/7/2019'), shifts);
