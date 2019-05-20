@@ -1,10 +1,11 @@
-import { Component, OnInit, HostListener } from '@angular/core';
+import { Component, OnInit, HostListener, TemplateRef } from '@angular/core';
 import { Week } from 'src/app/classes/week';
 import { ShiftService } from 'src/app/services/shift.service';
 import { User } from 'src/app/classes/user';
 import { Shift } from 'src/app/classes/shift';
 import { Credentials } from 'src/app/classes/credentials';
 import { Day } from 'src/app/classes/day';
+import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 
 @Component({
   selector: 'app-shifts',
@@ -17,20 +18,38 @@ export class ShiftsComponent implements OnInit {
   currentDay = 0;
   currentDate;
   weekOrDay: string;
-  constructor(private shiftService: ShiftService) { }
+  modalRef: BsModalRef;
+  config = {
+    backdrop: false
+  };
+  clickedShift: Shift;
+  weekdays = new Array<string>();
+
+  constructor(private shiftService: ShiftService, private modalService: BsModalService) { }
 
   ngOnInit() {
     const today = new Date(Date.now());
-    const date = this.formartToUsableDate(today); //(today.getMonth() + 1) + '-' + today.getDate() + '-' + today.getFullYear();
+    const date = this.formartToUsableDate(today);
     console.log(date);
     // this.shiftService.fetchCurrentWeekByDate(date);
     // this.currentWeek = this.shiftService.getCurrentWeek(); commented out until backend is working
-    this.currentWeek = this.genSampleData();
+    this.currentWeek = this.formatShiftsForDisplay(this.genSampleData());
+    this.currentWeek = this.generateFillerShifts(this.currentWeek);
     this.currentDate = date;
-    if(this.isSmallScreen()){
+
+    this.currentWeek.days.forEach( day => {
+      this.weekdays.push(this.formartToUsableDate(day.date));
+    });
+    if (this.isSmallScreen()) {
       this.weekOrDay = 'Day';
     } else {
       this.weekOrDay = 'Week';
+    }
+  }
+  openModal(template: TemplateRef<any>, shift: Shift) {
+    this.clickedShift = shift;
+    if(!shift.isEmptyShift) {
+      this.modalRef = this.modalService.show(template, this.config);
     }
   }
   isSmallScreen() {
@@ -80,29 +99,71 @@ export class ShiftsComponent implements OnInit {
     const hPercent = height + '%';
     return hPercent;
   }
+  formatShiftsForDisplay(week: Week): Week {
+    week.days.forEach( day => {
+      day.shifts = day.shifts.sort((a, b) => a.startTime - b.startTime);
+    });
+    return week;
+  }
+  generateFillerShifts(week: Week): Week {
+    const blankShift = new Shift(0, 0, 1, null, 0, true);
+    week.days.forEach(day => {
+      const emptyShifts = new Array<Shift>();
+      if (day.shifts !== undefined) {
+        if (day.shifts[0].startTime !== 0){
+          emptyShifts.push(new Shift(0, 0, day.shifts[0].startTime, null, 0, true));
+        }
+      }
+      if (day.shifts !== undefined) {
+        for (let i = 1; i < day.shifts.length; i++) {
+          if (day.shifts[i - 1].endTime !== day.shifts[i].startTime) {
+            emptyShifts.push(new Shift(0, day.shifts[i - 1].endTime, day.shifts[i].startTime, null, 0, true));
+          }
+        }
+      }
+      emptyShifts.forEach(shift => {
+        day.shifts.push(shift);
+      });
+    });
+    console.log(week.days);
+    week = this.formatShiftsForDisplay(week);
+    return week;
+  }
   // 768 is small breakpoint for bootstrap
 
 
 
   genSampleData(): Week {
-    const bob = new User('Bob', 'Sather', 'bobsather@gmail.com', 'employee', 1,
+    let bob = new User('Bob', 'Sather', 'bobsather@gmail.com', 'employee', 1,
       new Credentials('billyboy', 'aoishgoihsgohap dhgap0sygsadgh', 'bobsath'));
-    const martha = new User('Martha', 'Stuart', 'martha@margo.wiz', 'employee', 2,
+    let martha = new User('Martha', 'Stuart', 'martha@margo.wiz', 'employee', 2,
       new Credentials('cookingiscool', 'aosihgoisahdpgoihaspdoigh', 'marthathecook'));
-    const emps = new Array<User>(martha, bob);
-    //const fShift = new Shift(8, 12, emps);
-    //const sshift = new Shift(12, 16, emps);
-    const tshift = new Shift(0, 6, emps);
-    const shifts = new Array<Shift>(tshift);
-    const monday = new Day(new Date('5/6/2019'), shifts);
-    const tuesday = new Day(new Date('5/7/2019'), shifts);
-    const wednesday = new Day(new Date('5/8/2019'), shifts);
-    const thursday = new Day(new Date('5/9/2019'), shifts);
-    const friday = new Day(new Date('5/10/2019'), shifts);
-    const saturday = new Day(new Date('5/11/2019'), shifts);
-    const sunday = new Day(new Date('5/12/2019'), shifts);
-    const days = new Array<Day>(monday, tuesday, wednesday, thursday, friday, saturday, sunday);
-    const week = new Week(days, 1, new Date(days[0].date));
+    let monty = new User('Monty', 'Python', 'monty@python.com', 'employee', 3,
+      new Credentials('hamsterparty', 'aosihgoisahdpgoihaspdoigh', 'montypython'));
+    let james = new User('James', 'Bond', 'bonejamesbond@bond.com', 'employee', 4,
+      new Credentials('shakennotstirred', 'aosihgoisahdpgoihaspdoigh', 'jamesbond'));
+    let emps = new Array<User>(martha, bob);
+    let emps2 = new Array<User>(monty, james);
+    let fShift = new Shift(1, 9, 12, emps, 2);
+    let nshift = new Shift(3, 3, 16, emps2, 2);
+    let sshift = new Shift(2, 17, 20, emps2, 2);
+    let tshift = new Shift(0, 1, 9, emps, 2);
+    let shifts1 = new Array<Shift>(sshift, fShift, tshift);
+    let shifts2 = new Array<Shift>(nshift);
+    let shifts3 = new Array<Shift>(sshift, fShift, tshift);
+    let shifts4 = new Array<Shift>(nshift);
+    let shifts5 = new Array<Shift>(sshift, fShift, tshift);
+    let shifts6 = new Array<Shift>(sshift, fShift, tshift);
+    let shifts7 = new Array<Shift>(sshift, fShift, tshift);
+    let monday = new Day(new Date('5/6/2019'), shifts6);
+    let tuesday = new Day(new Date('5/7/2019'), shifts5);
+    let wednesday = new Day(new Date('5/8/2019'), shifts3);
+    let thursday = new Day(new Date('5/9/2019'), shifts7);
+    let friday = new Day(new Date('5/10/2019'), shifts1);
+    let saturday = new Day(new Date('5/11/2019'), shifts2);
+    let sunday = new Day(new Date('5/12/2019'), shifts4);
+    let days = new Array<Day>(monday, tuesday, wednesday, thursday, friday, saturday, sunday);
+    let week = new Week(days, 1, new Date(days[0].date));
     return week;
   }
 

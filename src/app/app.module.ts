@@ -15,6 +15,7 @@ import { TrimPipePipe } from './pipes/trim-pipe.pipe';
 import { ShiftsComponent } from './components/shifts/shifts.component';
 import { EmployeeAddDeleteComponent } from './components/employee-add-delete/employee-add-delete.component';
 import { BuisnessPageComponent } from './components/buisness-page/buisness-page.component';
+import { ModalModule } from 'ngx-bootstrap/modal';
 
 
 @NgModule({
@@ -34,7 +35,8 @@ import { BuisnessPageComponent } from './components/buisness-page/buisness-page.
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    CollapseModule
+    CollapseModule,
+    ModalModule.forRoot()
   ],
   providers: [CookieService],
   bootstrap: [AppComponent]

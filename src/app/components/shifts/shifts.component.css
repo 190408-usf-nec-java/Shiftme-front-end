@@ -5,13 +5,33 @@
 }
 .shift {
     width: 100%;
-    margin: 1px 0;
+    background-color: #aaa;
+    border: solid 1px #fff;
+    box-sizing: border-box;
+}
+.shift:hover {
+    background-color: #888;
+    box-shadow: 3px 3px 3px #666;
 }
 .day-date{
     width: 100%;
 }
+.emps-list {
+    list-style: none;
+    padding-left: 2px;
+}
+.emps {
+    color: #fff;
+    text-decoration: none;
+}
 .hours{
     height: 72vh;
+}
+.empty{
+    background: none !important;
+}
+.empty:hover {
+    box-shadow: none !important;
 }
 .hours>table>tbody>tr>td {
     font-size: .7rem;

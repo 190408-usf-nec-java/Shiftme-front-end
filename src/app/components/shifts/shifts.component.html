@@ -7,16 +7,15 @@
   <div class="d-flex flex-row col-12">
     <div class="col-1"></div>
     <div class="col-11 d-flex flex-row justify-content-between">
-        <h5 *ngIf="isCurrentDay(0)" class="day-date text-center text-white">{{ currentDate }} </h5>
-        <h5 *ngIf="isCurrentDay(1)" class="day-date text-center text-white">{{ currentDate }} </h5>
-        <h5 *ngIf="isCurrentDay(2)" class="day-date text-center text-white">{{ currentDate }} </h5>
-        <h5 *ngIf="isCurrentDay(3)" class="day-date text-center text-white">{{ currentDate }} </h5>
-        <h5 *ngIf="isCurrentDay(4)" class="day-date text-center text-white">{{ currentDate }} </h5>
-        <h5 *ngIf="isCurrentDay(5)" class="day-date text-center text-white">{{ currentDate }} </h5>
-        <h5 *ngIf="isCurrentDay(6)" class="day-date text-center text-white">{{ currentDate }} </h5>
+        <h5 *ngIf="isCurrentDay(0)" class="day-date text-center text-white">{{ weekdays[0] }} </h5>
+        <h5 *ngIf="isCurrentDay(1)" class="day-date text-center text-white">{{ weekdays[1] }} </h5>
+        <h5 *ngIf="isCurrentDay(2)" class="day-date text-center text-white">{{ weekdays[2] }} </h5>
+        <h5 *ngIf="isCurrentDay(3)" class="day-date text-center text-white">{{ weekdays[3] }} </h5>
+        <h5 *ngIf="isCurrentDay(4)" class="day-date text-center text-white">{{ weekdays[4] }} </h5>
+        <h5 *ngIf="isCurrentDay(5)" class="day-date text-center text-white">{{ weekdays[5] }} </h5>
+        <h5 *ngIf="isCurrentDay(6)" class="day-date text-center text-white">{{ weekdays[6] }} </h5>
     </div>
   </div>
-  <button class="btn btn-primary" (click)="clickFunction($event)">Click me!</button>
   <div class="d-flex flex-row">
     <div class="d-flex flex-column justify-content-between hours col-1">
       <table>
@@ -98,26 +97,70 @@
     </div>
     <div class="shifts-wrapper col-11 d-flex flex-row justify-content-between bg-light">
       <div *ngIf="isCurrentDay(0)" class="day">
-        <div *ngFor="let shift of currentWeek.days[0].shifts" class="shift bg-secondary" [style.height]="getHeight(shift)"></div>
+        <div *ngFor="let shift of currentWeek.days[0].shifts" [class.empty]="shift.isEmptyShift" class="shift" 
+          (click)="openModal(template, shift)" [style.height]="getHeight(shift)"> 
+          <ul class="emps-list">
+            <li class="emps" *ngFor="let employee of shift.employees">{{ employee.firstname + ' ' + employee.lastname }}</li>
+          </ul>
+        </div>
       </div>
       <div *ngIf="isCurrentDay(1)" class="day">
-        <div *ngFor="let shift of currentWeek.days[1].shifts" class="shift bg-secondary" [style.height]="getHeight(shift)" ></div>
+        <div *ngFor="let shift of currentWeek.days[1].shifts" [class.empty]="shift.isEmptyShift" class="shift" 
+        (click)="openModal(template, shift)" [style.height]="getHeight(shift)" >
+        <ul class="emps-list">
+            <li class="emps" *ngFor="let employee of shift.employees">{{ employee.firstname + ' ' + employee.lastname }}</li>
+          </ul>
+        </div>
       </div>
       <div *ngIf="isCurrentDay(2)" class="day">
-        <div *ngFor="let shift of currentWeek.days[2].shifts" class="shift bg-secondary" [style.height]="getHeight(shift)"></div>
+        <div *ngFor="let shift of currentWeek.days[2].shifts" [class.empty]="shift.isEmptyShift" class="shift" 
+        (click)="openModal(template, shift)" [style.height]="getHeight(shift)">
+        <ul class="emps-list">
+            <li class="emps" *ngFor="let employee of shift.employees">{{ employee.firstname + ' ' + employee.lastname }}</li>
+          </ul>
+        </div>
       </div>
       <div *ngIf="isCurrentDay(3)" class="day">
-        <div *ngFor="let shift of currentWeek.days[3].shifts" class="shift bg-secondary" [style.height]="getHeight(shift)"></div>
+        <div *ngFor="let shift of currentWeek.days[3].shifts" [class.empty]="shift.isEmptyShift" class="shift" 
+        (click)="openModal(template, shift)" [style.height]="getHeight(shift)"><ul class="emps-list">
+            <li class="emps" *ngFor="let employee of shift.employees">{{ employee.firstname + ' ' + employee.lastname }}</li>
+          </ul>
+        </div>
       </div>
       <div *ngIf="isCurrentDay(4)" class="day">
-        <div *ngFor="let shift of currentWeek.days[4].shifts" class="shift bg-secondary" [style.height]="getHeight(shift)"></div>
+        <div *ngFor="let shift of currentWeek.days[4].shifts" class="shift" [class.empty]="shift.isEmptyShift"
+        (click)="openModal(template, shift)" [style.height]="getHeight(shift)"><ul class="emps-list">
+            <li class="emps" *ngFor="let employee of shift.employees">{{ employee.firstname + ' ' + employee.lastname }}</li>
+          </ul>
+        </div>
       </div>
       <div *ngIf="isCurrentDay(5)" class="day">
-        <div *ngFor="let shift of currentWeek.days[5].shifts" class="shift bg-secondary" [style.height]="getHeight(shift)"></div>
+        <div *ngFor="let shift of currentWeek.days[5].shifts" class="shift" [class.empty]="shift.isEmptyShift"
+        (click)="openModal(template, shift)" [style.height]="getHeight(shift)"><ul class="emps-list">
+            <li class="emps" *ngFor="let employee of shift.employees">{{ employee.firstname + ' ' + employee.lastname }}</li>
+          </ul>
+        </div>
       </div>
       <div *ngIf="isCurrentDay(6)" class="day">
-        <div *ngFor="let shift of currentWeek.days[6].shifts" class="shift bg-secondary" [style.height]="getHeight(shift)"></div>
+        <div *ngFor="let shift of currentWeek.days[6].shifts" class="shift" [class.empty]="shift.isEmptyShift"
+        (click)="openModal(template, shift)" [style.height]="getHeight(shift)"><ul class="emps-list">
+            <li class="emps" *ngFor="let employee of shift.employees">{{ employee.firstname + ' ' + employee.lastname }}</li>
+          </ul>
+        </div>
       </div>
     </div>
+    <ng-template #template>
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">Shift</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="col-12">Start Time: {{ clickedShift.startTime }}</div>
+        <div class="col-12">End Time: {{ clickedShift.endTime }}</div>
+        <div *ngFor="let employee of clickedShift.employees" class="col-12">Employee: {{ employee.firstname + ' ' + employee.lastname }}</div>
+      </div>
+    </ng-template>
   </div>
 </section>
