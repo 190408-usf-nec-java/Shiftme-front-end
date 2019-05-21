@@ -6,6 +6,7 @@ import { EmployeeCreateComponent } from './components/employee-create/employee-c
 import { ShiftsComponent } from './components/shifts/shifts.component';
 import { SignupComponent } from './components/signup/signup.component';
 import { BuisnessPageComponent } from './components/buisness-page/buisness-page.component';
+import { ShiftpoolComponent } from './components/shiftpool/shiftpool.component';
 
 const routes: Routes = [
   {
@@ -29,6 +30,10 @@ const routes: Routes = [
   }, {
     path: 'business',
     component: BuisnessPageComponent
+  },
+  {
+    path: 'openshifts',
+    component: ShiftpoolComponent
   }
 ];
 

@@ -17,6 +17,7 @@ import { EmployeeListComponent } from './components/employee-list/employee-list.
 import { BuisnessPageComponent } from './components/buisness-page/buisness-page.component';
 import { ShiftsComponent } from './components/shifts/shifts.component';
 import { ModalModule } from 'ngx-bootstrap/modal';
+import { ShiftpoolComponent } from './components/shiftpool/shiftpool.component';
 
 
 @NgModule({
@@ -30,7 +31,8 @@ import { ModalModule } from 'ngx-bootstrap/modal';
     EmployeeCreateComponent,
     EmployeeListComponent,
     ShiftsComponent,
-    BuisnessPageComponent
+    BuisnessPageComponent,
+    ShiftpoolComponent
   ],
   imports: [
     BrowserModule,
