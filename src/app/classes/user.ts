@@ -13,5 +13,6 @@ export class User {
         this.lastname = lastname;
         this.role = role;
         this.id = id;
+        this.credentials = credentials;
     }
 }

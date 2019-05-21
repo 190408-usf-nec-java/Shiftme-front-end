@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { Week } from '../classes/week';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/internal/operators/map';
+import { User } from '../classes/user';
+import { Credentials } from '../classes/credentials';
 
 @Injectable({
   providedIn: 'root'
@@ -10,6 +12,7 @@ export class ShiftService {
   private currentWeek: Week;
   private nextWeek: Week;
   private previousWeek: Week;
+  private employees: Array<User>;
   constructor(private httpClient: HttpClient) { }
 
   private fetchNextWeek(currentWeek: Week): void {
@@ -60,5 +63,19 @@ export class ShiftService {
     this.nextWeek = this.currentWeek;
     this.currentWeek = this.previousWeek;
     this.fetchPreviousWeek(this.currentWeek); // this method sets previous week;
+  }
+  public getEmployees(): Array<User> {
+    return this.employees;
+  }
+  public setEmployees(): void {
+    const bobCred = new Credentials('billyboy', 'aoishgoihsgohap dhgap0sygsadgh', 'bobsath');
+    const bob = new User('Bob', 'Sather', 'bobsather@gmail.com', 'employee', 1, bobCred);
+    const martha = new User('Martha', 'Stuart', 'martha@margo.wiz', 'employee', 2,
+      new Credentials('cookingiscool', 'aosihgoisahdpgoihaspdoigh', 'marthathecook'));
+    const monty = new User('Monty', 'Python', 'monty@python.com', 'employee', 3,
+      new Credentials('hamsterparty', 'aosihgoisahdpgoihaspdoigh', 'montypython'));
+    const james = new User('James', 'Bond', 'bonejamesbond@bond.com', 'employee', 4,
+      new Credentials('shakennotstirred', 'aosihgoisahdpgoihaspdoigh', 'jamesbond'));
+    this.employees = new Array<User>(bob, martha, monty, james);
   }
 }

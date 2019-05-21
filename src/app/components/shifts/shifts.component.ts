@@ -22,8 +22,11 @@ export class ShiftsComponent implements OnInit {
   config = {
     backdrop: false
   };
+  isEditMode = false;
   clickedShift: Shift;
+  currentEmployees: Array<User>;
   weekdays = new Array<string>();
+  isitChanged: boolean;
 
   constructor(private shiftService: ShiftService, private modalService: BsModalService) { }
 
@@ -45,6 +48,9 @@ export class ShiftsComponent implements OnInit {
     } else {
       this.weekOrDay = 'Week';
     }
+    this.shiftService.setEmployees();
+    this.currentEmployees = this.shiftService.getEmployees();
+    console.log(this.currentEmployees);
   }
   openModal(template: TemplateRef<any>, shift: Shift) {
     this.clickedShift = shift;
@@ -128,6 +134,47 @@ export class ShiftsComponent implements OnInit {
     console.log(week.days);
     week = this.formatShiftsForDisplay(week);
     return week;
+  }
+  isManager(): boolean {
+    return true;
+  }
+  isitEditMode(): boolean {
+    return this.isEditMode;
+  }
+  changeEmployee($event): void {
+    for (const employee of this.currentEmployees) {
+      if(employee.credentials.username === $event.target.value) {
+        this.clickedShift.employees.push(employee);
+      }
+    }
+    this.isitChanged = true;
+  }
+  employeeIsAlreadyAssigned(user: User): string {
+    for (const i of this.clickedShift.employees) {
+      if (i.credentials.username === user.credentials.username) {
+        return 'none';
+      }
+    }
+    return 'block';
+  }
+  edit() {
+    this.isEditMode = true;
+  }
+  save() {
+    this.isEditMode = false;
+  }
+  delete(username: string) {
+    for (const employee of this.currentEmployees) {
+      if (employee.credentials.username === username) {
+        const index = this.clickedShift.employees.indexOf(employee);
+        console.log(this.clickedShift.employees);
+        console.log(index);
+        this.clickedShift.employees.splice(index, 1);
+      }
+    }
+  }
+  isChanged(): boolean {
+    return this.isitChanged;
   }
   // 768 is small breakpoint for bootstrap
 
