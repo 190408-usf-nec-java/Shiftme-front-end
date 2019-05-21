@@ -24,7 +24,8 @@ const routes: Routes = [
   {
     path: 'shifts',
     component: ShiftsComponent
-  },  {
+  },
+  {
     path: 'signup',
     component: SignupComponent
   }, {
@@ -32,7 +33,7 @@ const routes: Routes = [
     component: BuisnessPageComponent
   },
   {
-    path: 'openshifts',
+    path: 'open',
     component: ShiftpoolComponent
   }
 ];
