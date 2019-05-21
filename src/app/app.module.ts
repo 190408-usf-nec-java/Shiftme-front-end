@@ -12,13 +12,11 @@ import { NavigationComponent } from './components/navigation/navigation.componen
 import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { SignupPipe } from './pipes/signup.pipe';
 import { TrimPipePipe } from './pipes/trim-pipe.pipe';
-<<<<<<< HEAD
 import { EmployeeCreateComponent } from './components/employee-create/employee-create.component';
 import { EmployeeListComponent } from './components/employee-list/employee-list.component';
-=======
-import { EmployeeAddDeleteComponent } from './components/employee-add-delete/employee-add-delete.component';
 import { BuisnessPageComponent } from './components/buisness-page/buisness-page.component';
->>>>>>> a32d954c198b9bc7b361c8d72d1eb5760067c8a2
+import { ShiftsComponent } from './components/shifts/shifts.component';
+import { ModalModule } from 'ngx-bootstrap/modal';
 
 
 @NgModule({
@@ -29,20 +27,18 @@ import { BuisnessPageComponent } from './components/buisness-page/buisness-page.
     NavigationComponent,
     SignupPipe,
     TrimPipePipe,
-<<<<<<< HEAD
     EmployeeCreateComponent,
-    EmployeeListComponent
-=======
-    EmployeeAddDeleteComponent,
+    EmployeeListComponent,
+    ShiftsComponent,
     BuisnessPageComponent
->>>>>>> a32d954c198b9bc7b361c8d72d1eb5760067c8a2
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    CollapseModule
+    CollapseModule,
+    ModalModule.forRoot()
   ],
   providers: [CookieService],
   bootstrap: [AppComponent]
