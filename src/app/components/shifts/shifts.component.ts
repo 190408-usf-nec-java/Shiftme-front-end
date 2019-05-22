@@ -30,7 +30,7 @@ export class ShiftsComponent implements OnInit {
   weekdays = new Array<string>();
   isitChanged: boolean;
 
-  constructor(private shiftService: ShiftService, private modalService: BsModalService, private loginService: LoginService, 
+  constructor(private shiftService: ShiftService, private modalService: BsModalService, private loginService: LoginService,
               private router: Router) { }
 
   ngOnInit() {
