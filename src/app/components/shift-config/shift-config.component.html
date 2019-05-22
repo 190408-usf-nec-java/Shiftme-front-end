@@ -4,62 +4,62 @@
       <section class="container d-flex justify-content-center">
       <div class="form-group d-flex justify-content-center flex-wrap">
         <label class="form-control-label text-white col-12" for="startTime">Shift Start Time:</label>
-        <input type="number" [(ngModel)]="startTime">
+        <input type="number" [(ngModel)]="shiftHours.startTime">
       
       </div>
       <div class="form-group has-danger d-flex justify-content-center flex-wrap">
         <label class="form-control-label text-white col-12" for="endTime">Shift End Time</label>
-        <input type="number" [(ngModel)]="endTime">
+        <input type="number" [(ngModel)]="shiftHours.endTime">
       </div>
     </section>
    <hr>
       <section class="container d-flex justify-content-center">
     <div class="form-check justify-content-center">
       <label class="form-check-label text-white col-12">
-        <input name="optionsRadios" class="form-check-input" type="checkbox" checked="" value="1">
+        <input name="optionsRadios" class="form-check-input" type="checkbox"  [(ngModel)]="shiftHours.weekDays.Monday" [ngModelOptions]="{standalone: true}" checked="" value="1">
         Monday
       </label>
     </div>
     <div class="form-check">
       <label class="form-check-label text-white col-12">
-        <input name="optionsRadios" class="form-check-input" type="checkbox" checked="" value="2">
+        <input name="optionsRadios" class="form-check-input" type="checkbox" [(ngModel)]="shiftHours.weekDays.Tuesday" [ngModelOptions]="{standalone: true}" checked="" value="2">
         Tuesday
       </label>
     </div>
     <div class="form-check">
       <label class="form-check-label text-white col-12">
-        <input name="optionsRadios" class="form-check-input" type="checkbox" checked="" value="3">
+        <input name="optionsRadios" class="form-check-input" type="checkbox" [(ngModel)]="shiftHours.weekDays.Wednesday" [ngModelOptions]="{standalone: true}" checked="" value="3">
         Wednesday
       </label>
     </div>
     <div class="form-check">
       <label class="form-check-label text-white col-12">
-        <input name="optionsRadios" class="form-check-input" type="checkbox" checked="" value="4">
+        <input name="optionsRadios" class="form-check-input" type="checkbox" [(ngModel)]="shiftHours.weekDays.Thursday" [ngModelOptions]="{standalone: true}" checked="" value="4">
         Thursday
       </label>
     </div>
     <div class="form-check">
       <label class="form-check-label text-white col-12">
-        <input name="optionsRadios" class="form-check-input" type="checkbox" checked="" value="5">
+        <input name="optionsRadios" class="form-check-input" type="checkbox" [(ngModel)]="shiftHours.weekDays.Friday" [ngModelOptions]="{standalone: true}" checked="" value="5">
         Friday
       </label>
     </div>
     <div class="form-check">
       <label class="form-check-label text-white col-12">
-        <input name="optionsRadios" class="form-check-input" type="checkbox" checked="" value="6">
+        <input name="optionsRadios" class="form-check-input" type="checkbox" [(ngModel)]="shiftHours.weekDays.Saturday" [ngModelOptions]="{standalone: true}" checked="" value="6">
         Saturday
       </label>
     </div>
     <div class="form-check">
       <label class="form-check-label text-white col-12">
-        <input name="optionsRadios" class="form-check-input" type="checkbox" checked="" value="7">
+        <input name="optionsRadios" class="form-check-input" type="checkbox" [(ngModel)]="shiftHours.weekDays.Sunday" [ngModelOptions]="{standalone: true}" checked="" value="7">
         Sunday
       </label>
     </div>
 </section>
 <hr>
    <div class="d-flex justify-content-center col-12">
-      <input class="btn btn-outline-light" type="submit" [disabled]="!(userValid() && passwordValid())" (click)="submit()">
+      <input class="btn btn-outline-light" type="submit" (click)="submit()">
     </div>
   </div>
   </section>

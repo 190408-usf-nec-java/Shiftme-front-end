@@ -16,7 +16,7 @@ export class LoginComponent implements OnInit {
   constructor(private loginService: LoginService) { }
 
   ngOnInit() {
-    this.loginService.currentUser('Amna', null,null,null,1,null);
+    this.loginService.currentUser = new User('Amna', null,null,null,1,null);
     this.loginResponse = this.loginService.$loginStatus.subscribe(status => {
       if (status === 200) {
         
