@@ -1,13 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { BuisnessPageService } from 'src/app/services/buisness-page.service';
 import { Subscription } from 'rxjs';
+import { LoginService } from 'src/app/services/login.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-buisness-page',
   templateUrl: './buisness-page.component.html',
   styleUrls: ['./buisness-page.component.css']
 })
-export class BuisnessPageComponent implements OnInit {
+export class BuisnessPageComponent implements OnInit, OnDestroy {
 
   businessName = '';
   city = '';
@@ -17,16 +19,19 @@ export class BuisnessPageComponent implements OnInit {
   businessResponse: Subscription;
   lastStatus = 200;
 
-  constructor(private buisnessPageService: BuisnessPageService) { }
+  constructor(private buisnessPageService: BuisnessPageService, private loginService: LoginService, private router: Router) { }
 
   ngOnInit() {
+    if (!this.loginService.getLoggedIn()) {
+      this.router.navigateByUrl('login');
+    }
     this.businessResponse = this.buisnessPageService.$businessStatus.subscribe(status => {
-      if(status ===200){
+      if (status === 200) {
 
-      }else{
+      } else {
         this.lastStatus = status;
       }
-    })
+    });
   }
 
   ngOnDestroy() {
@@ -37,7 +42,6 @@ export class BuisnessPageComponent implements OnInit {
   businessValid(): boolean {
     return this.businessName.length > 8;
   }
-  
   cityValid(): boolean {
     return this.city.length > 4;
   }
@@ -46,6 +50,6 @@ export class BuisnessPageComponent implements OnInit {
   }
 
   submit() {
-    this.buisnessPageService.business(this.businessName, this.city,this.address, this.state, this.zipCode);
+    this.buisnessPageService.business(this.businessName, this.city, this.address, this.state, this.zipCode);
   }
 }

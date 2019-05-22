@@ -6,6 +6,8 @@ import { Shift } from 'src/app/classes/shift';
 import { ShiftService } from 'src/app/services/shift.service';
 import { Credentials } from 'src/app/classes/credentials';
 import { Day } from 'src/app/classes/day';
+import { Router } from '@angular/router';
+import { LoginService } from 'src/app/services/login.service';
 
 @Component({
   selector: 'app-shiftpool',
@@ -27,9 +29,11 @@ export class ShiftpoolComponent implements OnInit {
   weekdays = new Array<string>();
   isitChanged: boolean;
 
-  constructor(private shiftService: ShiftService, private modalService: BsModalService) { }
+  constructor(private shiftService: ShiftService, private modalService: BsModalService, private router: Router, 
+              private loginService: LoginService) { }
 
   ngOnInit() {
+    
     const today = new Date(Date.now());
     const date = this.formartToUsableDate(today);
     console.log(date);

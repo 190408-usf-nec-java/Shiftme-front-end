@@ -4,6 +4,7 @@ import { Credentials } from 'src/app/classes/credentials';
 import { HttpClient } from '@angular/common/http';
 import { EmployeeService } from 'src/app/services/employee.service';
 import { Router } from '@angular/router';
+import { LoginService } from 'src/app/services/login.service';
 
 @Component({
   selector: 'app-employee-list',
@@ -14,10 +15,14 @@ export class EmployeeListComponent implements OnInit {
 
   replaceMe: User[];
 
-  constructor(private employeeService: EmployeeService, private httpClient: HttpClient, private router: Router) { }
+  constructor(private employeeService: EmployeeService, private httpClient: HttpClient, private router: Router, 
+              private loginService: LoginService) { }
 
   ngOnInit() {
     // const userList: User[] = JSON.parse(sessionStorage.getItem('users'));
+    if (!this.loginService.getLoggedIn()) {
+      this.router.navigateByUrl('login');
+    }
     this.replaceMe = [
       new User(
         'Humberto',

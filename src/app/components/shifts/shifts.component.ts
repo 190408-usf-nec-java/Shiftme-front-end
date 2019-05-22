@@ -6,6 +6,8 @@ import { Shift } from 'src/app/classes/shift';
 import { Credentials } from 'src/app/classes/credentials';
 import { Day } from 'src/app/classes/day';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
+import { LoginService } from 'src/app/services/login.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-shifts',
@@ -28,9 +30,13 @@ export class ShiftsComponent implements OnInit {
   weekdays = new Array<string>();
   isitChanged: boolean;
 
-  constructor(private shiftService: ShiftService, private modalService: BsModalService) { }
+  constructor(private shiftService: ShiftService, private modalService: BsModalService, private loginService: LoginService, 
+              private router: Router) { }
 
   ngOnInit() {
+    if (!this.loginService.getLoggedIn()){
+      this.router.navigateByUrl('login');
+    }
     const today = new Date(Date.now());
     const date = this.formartToUsableDate(today);
     console.log(date);

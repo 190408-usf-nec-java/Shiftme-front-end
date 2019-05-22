@@ -29,16 +29,12 @@ export class LoginService {
       .subscribe(response => {
         this.loginStatusSubject.next(200);
         this.currentUser = response;
-        // add cookies here
-        console.log(this.currentUser);
+        this.loggedIn = true;
       }, err => {
         this.loginStatusSubject.next(err.status);
       });
   }
   getLoggedIn(): boolean {
     return this.loggedIn;
-  }
-  setLoggedIn(loggedIn: boolean) {
-    this.loggedIn = loggedIn;
   }
 }
