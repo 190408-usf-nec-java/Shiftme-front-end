@@ -15,11 +15,11 @@ export class EmployeeListComponent implements OnInit {
 
   replaceMe: Users[];
 
-  constructor(private employeeService: EmployeeService, private httpClient: HttpClient, private router: Router, 
+  constructor(private employeeService: EmployeeService, private httpClient: HttpClient, private router: Router,
               private loginService: LoginService) { }
 
   ngOnInit() {
-    // const userList: User[] = JSON.parse(sessionStorage.getItem('users'));
+    console.log(!this.loginService.getLoggedIn());
     if (!this.loginService.getLoggedIn()) {
       this.router.navigateByUrl('login');
     }

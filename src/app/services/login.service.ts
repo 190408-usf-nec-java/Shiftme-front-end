@@ -16,14 +16,14 @@ export class LoginService {
 
   username: string;
   password: string;
-  private loggedIn: boolean;
+  private loggedIn = false;
 
   login(username: string, password: string): void {
     const payload = {
       username: username,
       password: password
     }
-    this.httpClient.post('http://localhost:8081/login', payload, {
+    this.httpClient.post('http://localhost:8081/cred/login', payload, {
       observe: 'response',
       }).pipe(map(response => response.body as Users))
       .subscribe(response => {
