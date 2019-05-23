@@ -3,7 +3,7 @@ import { Observable, Subject } from 'rxjs';
 import { HttpClient, HttpResponse, HttpHeaders } from '@angular/common/http';
 import { CookieService } from 'ngx-cookie-service';
 import { map } from 'rxjs/operators';
-import { User } from '../classes/user';
+import { Users } from '../classes/users';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +11,7 @@ import { User } from '../classes/user';
 export class LoginService {
   private loginStatusSubject = new Subject<number>();
   public  $loginStatus = this.loginStatusSubject.asObservable();
-  currentUser: User;
+  currentUser: Users;
   constructor(private httpClient: HttpClient, private cookieService: CookieService) { }
 
   username: string;
@@ -25,7 +25,7 @@ export class LoginService {
     }
     this.httpClient.post('http://localhost:8081/login', payload, {
       observe: 'response',
-      }).pipe(map(response => response.body as User))
+      }).pipe(map(response => response.body as Users))
       .subscribe(response => {
         this.loginStatusSubject.next(200);
         this.currentUser = response;

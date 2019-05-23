@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { LoginService } from 'src/app/services/login.service';
 import { Subscription } from 'rxjs';
+import{ Users } from 'src/app/classes/users';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -15,9 +16,10 @@ export class LoginComponent implements OnInit {
   constructor(private loginService: LoginService) { }
 
   ngOnInit() {
+    this.loginService.currentUser = new Users('Amna', null,null,null,1,null);
     this.loginResponse = this.loginService.$loginStatus.subscribe(status => {
       if (status === 200) {
-
+        
       } else {
         this.lastStatus = status;
       }

@@ -7,6 +7,7 @@ import { ShiftsComponent } from './components/shifts/shifts.component';
 import { SignupComponent } from './components/signup/signup.component';
 import { BuisnessPageComponent } from './components/buisness-page/buisness-page.component';
 import { ShiftpoolComponent } from './components/shiftpool/shiftpool.component';
+import { ShiftConfigComponent } from './components/shift-config/shift-config.component';
 
 const routes: Routes = [
   {
@@ -35,6 +36,10 @@ const routes: Routes = [
   {
     path: 'open',
     component: ShiftpoolComponent
+  },
+  {
+  path: 'shift-config',
+    component: ShiftConfigComponent
   }
 ];
 
