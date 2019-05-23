@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { User } from 'src/app/classes/user';
+import { Users } from 'src/app/classes/users';
 import { Credentials } from 'src/app/classes/credentials';
 import { EmployeeService } from 'src/app/services/employee.service';
 import { Router } from '@angular/router';
@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
 })
 export class EmployeeCreateComponent implements OnInit {
 
-  @Input() user: User = new User('', '', '', '', -1, null);
+  @Input() user: Users = new Users('', '', '', '', -1, null);
   @Input() username = '';
   @Input() password = '';
   @Input() passwordConfirmation = '';
