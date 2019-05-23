@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Users } from '../classes/users';
 import { Subject } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -33,7 +34,7 @@ export class EmployeeService {
     throw new Error('Method not implemented.');
   }
 
-  createUser() {
+  createUser(user: Users) {
     // const listUsers = JSON.parse(sessionStorage.getItem('users'));
     // user: User = listUsers.getItem(id);
     // this.httpClient.post('http://localhost:8080/addEmployee', JSON.stringify(user) {
@@ -48,6 +49,14 @@ export class EmployeeService {
     //   }, err => {
     //     this.loginStatusSubject.next(err.status);
     //   });
-    throw new Error('Method not implemented.');
+    console.log(user);
+    this.httpClient.post('http://localhost:8081/people', user, {
+      observe: 'response'
+    }).pipe(map(response => response.body as string))
+    .subscribe(response => {
+      console.log(response);
+    }, err => {
+      console.log(err);
+    });
   }
 }

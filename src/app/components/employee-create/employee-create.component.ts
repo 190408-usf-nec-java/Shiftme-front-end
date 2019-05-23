@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
 })
 export class EmployeeCreateComponent implements OnInit {
 
-  @Input() user: Users = new Users('', '', '', '', -1, null);
+  @Input() user: Users = new Users('', '', '', -1, -1);
   @Input() username = '';
   @Input() password = '';
   @Input() passwordConfirmation = '';
@@ -22,11 +22,9 @@ export class EmployeeCreateComponent implements OnInit {
   }
 
   onSubmit() {
-    // employeeService.createUser();
-
-    this.user.credentials = new Credentials(this.password, '', this.username);
-    sessionStorage.setItem('newUser', JSON.stringify(this.user));
-    this.router.navigateByUrl('employee');
+    // this.user.credentials = new Credentials(this.password, '', this.username);
+    const deleteMe: Users = new Users('Charles', 'Manson', 'cm@hotmail.com', 1, -1);
+    this.employeeService.createUser(deleteMe);
   }
 
   formValidation(): boolean {

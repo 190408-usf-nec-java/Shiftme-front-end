@@ -68,14 +68,10 @@ export class ShiftService {
     return this.employees;
   }
   public setEmployees(): void {
-    const bobCred = new Credentials('billyboy', 'aoishgoihsgohap dhgap0sygsadgh', 'bobsath');
-    const bob = new Users('Bob', 'Sather', 'bobsather@gmail.com', 'employee', 1, bobCred);
-    const martha = new Users('Martha', 'Stuart', 'martha@margo.wiz', 'employee', 2,
-      new Credentials('cookingiscool', 'aosihgoisahdpgoihaspdoigh', 'marthathecook'));
-    const monty = new Users('Monty', 'Python', 'monty@python.com', 'employee', 3,
-      new Credentials('hamsterparty', 'aosihgoisahdpgoihaspdoigh', 'montypython'));
-    const james = new Users('James', 'Bond', 'bonejamesbond@bond.com', 'employee', 4,
-      new Credentials('shakennotstirred', 'aosihgoisahdpgoihaspdoigh', 'jamesbond'));
+    const bob = new Users('Bob', 'Sather', 'bobsather@gmail.com', -1, 1);
+    const martha = new Users('Martha', 'Stuart', 'martha@margo.wiz', -1, 2);
+    const monty = new Users('Monty', 'Python', 'monty@python.com', -1, 3);
+    const james = new Users('James', 'Bond', 'bonejamesbond@bond.com', -1, 4);
     this.employees = new Array<Users>(bob, martha, monty, james);
   }
 }

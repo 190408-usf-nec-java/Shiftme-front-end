@@ -149,7 +149,7 @@ export class ShiftsComponent implements OnInit {
   }
   changeEmployee($event): void {
     for (const employee of this.currentEmployees) {
-      if(employee.credentials.username === $event.target.value) {
+      if(employee.id === $event.target.value) {
         this.clickedShift.employees.push(employee);
       }
     }
@@ -158,7 +158,7 @@ export class ShiftsComponent implements OnInit {
 
   employeeIsAlreadyAssigned(user: Users): string {
     for (const i of this.clickedShift.employees) {
-      if (i.credentials.username === user.credentials.username) {
+      if (i.id === user.id) {
         return 'none';
       }
     }
@@ -170,9 +170,9 @@ export class ShiftsComponent implements OnInit {
   save() {
     this.isEditMode = false;
   }
-  delete(username: string) {
+  delete(id: number) {
     for (const employee of this.currentEmployees) {
-      if (employee.credentials.username === username) {
+      if (employee.id === id) {
         const index = this.clickedShift.employees.indexOf(employee);
         console.log(this.clickedShift.employees);
         console.log(index);
@@ -188,14 +188,10 @@ export class ShiftsComponent implements OnInit {
 
 
   genSampleData(): Week {
-    let bob = new Users('Bob', 'Sather', 'bobsather@gmail.com', 'employee', 1,
-      new Credentials('billyboy', 'aoishgoihsgohap dhgap0sygsadgh', 'bobsath'));
-    let martha = new Users('Martha', 'Stuart', 'martha@margo.wiz', 'employee', 2,
-      new Credentials('cookingiscool', 'aosihgoisahdpgoihaspdoigh', 'marthathecook'));
-    let monty = new Users('Monty', 'Python', 'monty@python.com', 'employee', 3,
-      new Credentials('hamsterparty', 'aosihgoisahdpgoihaspdoigh', 'montypython'));
-    let james = new Users('James', 'Bond', 'bonejamesbond@bond.com', 'employee', 4,
-      new Credentials('shakennotstirred', 'aosihgoisahdpgoihaspdoigh', 'jamesbond'));
+    let bob = new Users('Bob', 'Sather', 'bobsather@gmail.com', -1, 1);
+    let martha = new Users('Martha', 'Stuart', 'martha@margo.wiz', -1, 2);
+    let monty = new Users('Monty', 'Python', 'monty@python.com', -1, 3);
+    let james = new Users('James', 'Bond', 'bonejamesbond@bond.com', -1, 4);
     let emps = new Array<Users>(martha, bob);
     let emps2 = new Array<Users>(monty, james);
     let fShift = new Shift(1, 9, 12, emps, 2);

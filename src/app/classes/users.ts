@@ -1,18 +1,14 @@
-import { Credentials } from './credentials';
-
 export class Users {
-    credentials: Credentials;
-    firstname: string;
-    lastname: string;
-	email: string;
-    role: string;
+    firstName: string;
+    lastName: string;
+    email: string;
+    role: number;
     id: number;
-    constructor(firstname: string, lastname: string, email: string, role: string, id: number, credentials: Credentials) {
-        this.firstname = firstname;
+    constructor(firstname: string, lastname: string, email: string, role: number, id: number) {
+        this.firstName = firstname;
         this.email = email;
-        this.lastname = lastname;
+        this.lastName = lastname;
         this.role = role;
         this.id = id;
-        this.credentials = credentials;
     }
 }

@@ -20,36 +20,32 @@ export class EmployeeListComponent implements OnInit {
 
   ngOnInit() {
     // const userList: User[] = JSON.parse(sessionStorage.getItem('users'));
-    if (!this.loginService.getLoggedIn()) {
-      this.router.navigateByUrl('login');
-    }
+    // if (!this.loginService.getLoggedIn()) {
+    //   this.router.navigateByUrl('login');
+    // }
     this.replaceMe = [
       new Users(
         'Humberto',
         'Dio',
         'hdio@hotmail.com',
-        'Good looks',
-        666,
-        new Credentials('yoMama', 'yoMamasMama', 'hdio')
+        -1,
+        666
       ),
 
       new Users(
         'Nope',
         'Nada',
         'nothing@hotmail.com',
-        'Nihilist',
-        0,
-        new Credentials('noValue', 'noWorth', 'noTruth')
+        -1,
+        0
       ),
 
       new Users(
         'Three',
         'Is',
         'perfect@hotmail.com',
-        'number',
-        3,
-        new Credentials('trinity', 'triumvirate', 'threeLayeredCake')
-      )
+        -1,
+        3)
     ];
 
     this.replaceMe.push(JSON.parse(sessionStorage.getItem('newUser')));
