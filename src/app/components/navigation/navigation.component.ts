@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { LoginService } from 'src/app/services/login.service';
 
 @Component({
   selector: 'app-navigation',
@@ -6,13 +7,20 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./navigation.component.css']
 })
 export class NavigationComponent implements OnInit {
-
-  constructor() { }
+  
+  constructor(private loginService: LoginService) { }
   public innerWidth: any;
   isCollapsed = false;
 
   ngOnInit() {
     this.innerWidth = window.innerWidth;
   }
+
+  managerValid(): boolean{
+    if(this.loginService.currentUser.role === 'manager'){
+      return true;
+    }
+  }
+
 
 }

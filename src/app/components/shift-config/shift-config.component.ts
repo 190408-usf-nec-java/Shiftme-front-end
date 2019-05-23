@@ -15,7 +15,7 @@ export class ShiftConfigComponent implements OnInit {
   constructor(private loginService: LoginService, private shiftConfigService: ShiftConfigService) { }
 
   ngOnInit() {
-   console.log(this.loginService.currentUser.firstname);
+   console.log(this.loginService.currentUser.role);
   }
 
   submit(){
