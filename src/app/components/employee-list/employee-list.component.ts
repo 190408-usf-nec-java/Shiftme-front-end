@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { User } from 'src/app/classes/user';
+import { Users } from 'src/app/classes/users';
 import { Credentials } from 'src/app/classes/credentials';
 import { HttpClient } from '@angular/common/http';
 import { EmployeeService } from 'src/app/services/employee.service';
@@ -12,14 +12,14 @@ import { Router } from '@angular/router';
 })
 export class EmployeeListComponent implements OnInit {
 
-  replaceMe: User[];
+  replaceMe: Users[];
 
   constructor(private employeeService: EmployeeService, private httpClient: HttpClient, private router: Router) { }
 
   ngOnInit() {
     // const userList: User[] = JSON.parse(sessionStorage.getItem('users'));
     this.replaceMe = [
-      new User(
+      new Users(
         'Humberto',
         'Dio',
         'hdio@hotmail.com',
@@ -28,7 +28,7 @@ export class EmployeeListComponent implements OnInit {
         new Credentials('yoMama', 'yoMamasMama', 'hdio')
       ),
 
-      new User(
+      new Users(
         'Nope',
         'Nada',
         'nothing@hotmail.com',
@@ -37,7 +37,7 @@ export class EmployeeListComponent implements OnInit {
         new Credentials('noValue', 'noWorth', 'noTruth')
       ),
 
-      new User(
+      new Users(
         'Three',
         'Is',
         'perfect@hotmail.com',
@@ -51,7 +51,7 @@ export class EmployeeListComponent implements OnInit {
 
 
   }
-  delete(user: User) {
+  delete(user: Users) {
     // this.employeeService.deleteUser(user.id);
 
     // Delete this

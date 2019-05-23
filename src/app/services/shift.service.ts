@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Week } from '../classes/week';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/internal/operators/map';
-import { User } from '../classes/user';
+import { Users } from '../classes/users';
 import { Credentials } from '../classes/credentials';
 
 @Injectable({
@@ -12,7 +12,7 @@ export class ShiftService {
   private currentWeek: Week;
   private nextWeek: Week;
   private previousWeek: Week;
-  private employees: Array<User>;
+  private employees: Array<Users>;
   constructor(private httpClient: HttpClient) { }
 
   private fetchNextWeek(currentWeek: Week): void {
@@ -64,18 +64,18 @@ export class ShiftService {
     this.currentWeek = this.previousWeek;
     this.fetchPreviousWeek(this.currentWeek); // this method sets previous week;
   }
-  public getEmployees(): Array<User> {
+  public getEmployees(): Array<Users> {
     return this.employees;
   }
   public setEmployees(): void {
     const bobCred = new Credentials('billyboy', 'aoishgoihsgohap dhgap0sygsadgh', 'bobsath');
-    const bob = new User('Bob', 'Sather', 'bobsather@gmail.com', 'employee', 1, bobCred);
-    const martha = new User('Martha', 'Stuart', 'martha@margo.wiz', 'employee', 2,
+    const bob = new Users('Bob', 'Sather', 'bobsather@gmail.com', 'employee', 1, bobCred);
+    const martha = new Users('Martha', 'Stuart', 'martha@margo.wiz', 'employee', 2,
       new Credentials('cookingiscool', 'aosihgoisahdpgoihaspdoigh', 'marthathecook'));
-    const monty = new User('Monty', 'Python', 'monty@python.com', 'employee', 3,
+    const monty = new Users('Monty', 'Python', 'monty@python.com', 'employee', 3,
       new Credentials('hamsterparty', 'aosihgoisahdpgoihaspdoigh', 'montypython'));
-    const james = new User('James', 'Bond', 'bonejamesbond@bond.com', 'employee', 4,
+    const james = new Users('James', 'Bond', 'bonejamesbond@bond.com', 'employee', 4,
       new Credentials('shakennotstirred', 'aosihgoisahdpgoihaspdoigh', 'jamesbond'));
-    this.employees = new Array<User>(bob, martha, monty, james);
+    this.employees = new Array<Users>(bob, martha, monty, james);
   }
 }

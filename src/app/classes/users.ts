@@ -1,6 +1,6 @@
 import { Credentials } from './credentials';
 
-export class User {
+export class Users {
     credentials: Credentials;
     firstname: string;
     lastname: string;
