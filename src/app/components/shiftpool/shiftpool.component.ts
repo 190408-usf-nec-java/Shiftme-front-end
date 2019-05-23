@@ -1,7 +1,7 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { Week } from 'src/app/classes/week';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
-import { User } from 'src/app/classes/user';
+import { Users } from 'src/app/classes/users';
 import { Shift } from 'src/app/classes/shift';
 import { ShiftService } from 'src/app/services/shift.service';
 import { Credentials } from 'src/app/classes/credentials';
@@ -25,15 +25,14 @@ export class ShiftpoolComponent implements OnInit {
   };
   isEditMode = false;
   clickedShift: Shift;
-  currentEmployees: Array<User>;
+  currentEmployees: Array<Users>;
   weekdays = new Array<string>();
   isitChanged: boolean;
 
-  constructor(private shiftService: ShiftService, private modalService: BsModalService, private router: Router, 
+  constructor(private shiftService: ShiftService, private modalService: BsModalService, private router: Router,
               private loginService: LoginService) { }
 
   ngOnInit() {
-    
     const today = new Date(Date.now());
     const date = this.formartToUsableDate(today);
     console.log(date);
@@ -57,7 +56,7 @@ export class ShiftpoolComponent implements OnInit {
   }
   openModal(template: TemplateRef<any>, shift: Shift) {
     this.clickedShift = shift;
-    if(!shift.isEmptyShift) {
+    if (!shift.isEmptyShift) {
       this.modalRef = this.modalService.show(template, this.config);
     }
   }
@@ -73,7 +72,7 @@ export class ShiftpoolComponent implements OnInit {
   }
   next() {
     if (this.isSmallScreen()) {
-      if (this.currentDay === 6){
+      if (this.currentDay === 6) {
         this.shiftService.gotoNextWeek();
         this.currentWeek = this.shiftService.getCurrentWeek();
         this.currentDay = 0;
@@ -119,7 +118,7 @@ export class ShiftpoolComponent implements OnInit {
     week.days.forEach(day => {
       const emptyShifts = new Array<Shift>();
       if (day.shifts !== undefined) {
-        if (day.shifts[0].startTime !== 0){
+        if (day.shifts[0].startTime !== 0) {
           emptyShifts.push(new Shift(0, 0, day.shifts[0].startTime, null, 0, true));
         }
       }
@@ -146,13 +145,13 @@ export class ShiftpoolComponent implements OnInit {
   }
   changeEmployee($event): void {
     for (const employee of this.currentEmployees) {
-      if(employee.credentials.username === $event.target.value) {
+      if (employee.credentials.username === $event.target.value) {
         this.clickedShift.employees.push(employee);
       }
     }
     this.isitChanged = true;
   }
-  employeeIsAlreadyAssigned(user: User): string {
+  employeeIsAlreadyAssigned(user: Users): string {
     for (const i of this.clickedShift.employees) {
       if (i.credentials.username === user.credentials.username) {
         return 'none';
@@ -184,16 +183,16 @@ export class ShiftpoolComponent implements OnInit {
 
 
   genSampleData(): Week {
-    let bob = new User('Bob', 'Sather', 'bobsather@gmail.com', 'employee', 1,
+    let bob = new Users('Bob', 'Sather', 'bobsather@gmail.com', 'employee', 1,
       new Credentials('billyboy', 'aoishgoihsgohap dhgap0sygsadgh', 'bobsath'));
-    let martha = new User('Martha', 'Stuart', 'martha@margo.wiz', 'employee', 2,
+    let martha = new Users('Martha', 'Stuart', 'martha@margo.wiz', 'employee', 2,
       new Credentials('cookingiscool', 'aosihgoisahdpgoihaspdoigh', 'marthathecook'));
-    let monty = new User('Monty', 'Python', 'monty@python.com', 'employee', 3,
+    let monty = new Users('Monty', 'Python', 'monty@python.com', 'employee', 3,
       new Credentials('hamsterparty', 'aosihgoisahdpgoihaspdoigh', 'montypython'));
-    let james = new User('James', 'Bond', 'bonejamesbond@bond.com', 'employee', 4,
+    let james = new Users('James', 'Bond', 'bonejamesbond@bond.com', 'employee', 4,
       new Credentials('shakennotstirred', 'aosihgoisahdpgoihaspdoigh', 'jamesbond'));
-    let emps = new Array<User>(martha, bob);
-    let emps2 = new Array<User>(monty, james);
+    let emps = new Array<Users>(martha, bob);
+    let emps2 = new Array<Users>(monty, james);
     let fShift = new Shift(1, 9, 12, emps, 2);
     let nshift = new Shift(3, 3, 16, emps2, 2);
     let sshift = new Shift(2, 17, 20, emps2, 2);
