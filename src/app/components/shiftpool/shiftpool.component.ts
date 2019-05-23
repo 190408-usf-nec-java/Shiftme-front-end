@@ -33,6 +33,9 @@ export class ShiftpoolComponent implements OnInit {
               private loginService: LoginService) { }
 
   ngOnInit() {
+    if (!this.loginService.getLoggedIn()){
+      this.router.navigateByUrl('login');
+    }
     const today = new Date(Date.now());
     const date = this.formartToUsableDate(today);
     console.log(date);
