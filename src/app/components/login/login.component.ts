@@ -18,7 +18,7 @@ export class LoginComponent implements OnInit {
   constructor(private loginService: LoginService, private router: Router, private cookieService: CookieService) { }
 
   ngOnInit() {
-    this.loginService.currentUser = new Users('Amna', null,null,'manager',1,null);
+    this.loginService.currentUser = new Users('Amna', null,null,2,1,null);
     console.log(this.loginService.currentUser.role);
     this.loginResponse = this.loginService.$loginStatus.subscribe(status => {
       if (status === 200) {
@@ -45,8 +45,6 @@ export class LoginComponent implements OnInit {
     this.loginService.login(this.username, this.password);
     this.loginResponse = this.loginService.$loginStatus.subscribe(status => {
       if (status === 200) {
-        this.cookieService.set('role', this.loginService.currentUser.role);
-        console.log(this.loginService.currentUser);
         this.router.navigateByUrl('shifts');
       } else {
         this.lastStatus = status;
@@ -57,7 +55,7 @@ export class LoginComponent implements OnInit {
     if (this.userValid()) {
       return 'form-control is-valid col-12';
     } else {
-      return 'form-control is-invalid col-12'
+      return 'form-control is-invalid col-12';
     }
   }
   validationClassesForPassword(): string {
@@ -69,7 +67,7 @@ export class LoginComponent implements OnInit {
   }
   
   managerValid(): boolean {
-    if( this.loginService.currentUser.role === 'manager'){
+    if( this.loginService.currentUser.role === 2){
         return true;
     }
 

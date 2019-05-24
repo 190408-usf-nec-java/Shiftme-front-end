@@ -2,52 +2,54 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Users } from '../classes/users';
 import { Subject } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { Credentials } from '../classes/credentials';
 
 @Injectable({
   providedIn: 'root'
 })
 export class EmployeeService {
 
-  private loginStatusSubject = new Subject<number>();
-  public $loginStatus = this.loginStatusSubject.asObservable();
+  listUsers: Array<Users> = [];
 
   constructor(private httpClient: HttpClient) { }
 
-  deleteUser(id: number): void {
-    // const listUsers = JSON.parse(sessionStorage.getItem('users'));
-    // user: User = listUsers.getItem(id);
-    // this.httpClient.delete('http://localhost:8080/ex/' + user.id, {
-    //   observe: 'response',
-    //   }).subscribe(response => {
-    //     this.loginStatusSubject.next(200);
-    //     console.log('User successfully deleted!');
-    // const index: number = listUsers.indexOf(user);
-    // if (index !== -1) {
-    //   listUsers.splice(index, 1);
-    // }
-    // sessionStorage.setItem('users', JSON.stringify(listUsers));
-
-    //   }, err => {
-    //     this.loginStatusSubject.next(err.status);
-    //   });
-    throw new Error('Method not implemented.');
+  getAllUsers() {
+    this.httpClient.get('http://localhost:8081/people', {
+      observe: 'response'
+    }).subscribe(response => {
+      const user = JSON.stringify(response.body);
+      console.log(user);
+      this.listUsers = JSON.parse(user);
+    }, err => {
+      console.log(err);
+    });
   }
 
-  createUser() {
-    // const listUsers = JSON.parse(sessionStorage.getItem('users'));
-    // user: User = listUsers.getItem(id);
-    // this.httpClient.post('http://localhost:8080/addEmployee', JSON.stringify(user) {
-    //   observe: 'response',
-    //   }).subscribe(response => {
-    //     this.loginStatusSubject.next(200);
-    //     console.log('User successfully added!');
-    // const index: number = listUsers.indexOf(user);
-    // listUsers.push(user);
-    // sessionStorage.setItem('users', JSON.stringify(listUsers));
+  deleteUser(user: Users): void {
+    this.httpClient.delete('http://localhost:8081/people/' + user.user_id, {
+      observe: 'response'
+    }).subscribe(response => {
+      console.log(response.body);
+      const index = this.listUsers.indexOf(user, 0);
+      if (index > -1) {
+        this.listUsers.splice(index, 1);
+      }
+    }, err => {
+      console.log(err);
+    });
+  }
 
-    //   }, err => {
-    //     this.loginStatusSubject.next(err.status);
-    //   });
-    throw new Error('Method not implemented.');
+  createUser(cred: Credentials) {
+    console.log(cred);
+    this.httpClient.post('http://localhost:8081/cred/create', cred, {
+      observe: 'response'
+    }).subscribe(response => {
+      const user = JSON.stringify(response.body);
+      console.log(user);
+      this.listUsers.push(JSON.parse(user));
+    }, err => {
+      console.log(err);
+    });
   }
 }

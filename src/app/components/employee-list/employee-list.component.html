@@ -5,15 +5,13 @@
         <th>Lastname</th>
         <th>Email</th>
         <th>Role</th>
-        <th>ID#</th>
         <th>Delete</th>
       </tr>
-      <tr *ngFor="let user of replaceMe">
-        <td>{{user.firstname}}</td>
-        <td>{{user.lastname}}</td>
+      <tr *ngFor="let user of employeeService.listUsers">
+        <td>{{user.firstName}}</td>
+        <td>{{user.lastName}}</td>
         <td>{{user.email}}</td>
         <td>{{user.role}}</td>
-        <td>{{user.id}}</td>
         <td>
           <button class="btn btn-danger" (click)="delete(user)">Delete</button>
         </td>

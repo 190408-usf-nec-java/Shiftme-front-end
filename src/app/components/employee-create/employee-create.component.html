@@ -3,12 +3,12 @@
     <form (ngSubmit)="onSubmit()">
       <div class="form-group">
         <label for="name">First Name</label>
-        <input type="text" class="form-control" [(ngModel)]="user.firstname" [ngModelOptions]="{standalone: true}" required>
+        <input type="text" class="form-control" [(ngModel)]="user.firstName" [ngModelOptions]="{standalone: true}" required>
       </div>
  
       <div class="form-group">
         <label for="alterEgo">Last Name</label>
-        <input type="text" class="form-control" [(ngModel)]="user.lastname" [ngModelOptions]="{standalone: true}" required>
+        <input type="text" class="form-control" [(ngModel)]="user.lastName" [ngModelOptions]="{standalone: true}" required>
       </div>
 
       <div class="form-group">
@@ -36,7 +36,8 @@
         <input type="password" class="form-control" [(ngModel)]="passwordConfirmation" [ngModelOptions]="{standalone: true}" required>
       </div>
  
-      <button type="submit" [disabled]="!formValidation()" class="btn btn-success">Submit</button>
+      <!-- <button type="submit" [disabled]="!formValidation()" class="btn btn-success">Submit</button> -->
+      <button type="submit" class="btn btn-success">Submit</button>
  
     </form>
     

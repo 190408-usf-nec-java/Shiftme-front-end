@@ -27,9 +27,11 @@ export class LoginService {
       observe: 'response',
       }).pipe(map(response => response.body as Users))
       .subscribe(response => {
-        this.loginStatusSubject.next(200);
         this.currentUser = response;
+        console.log(this.currentUser.token);
+        this.cookieService.set('role', this.currentUser.role.toString());
         this.loggedIn = true;
+        this.loginStatusSubject.next(200);
       }, err => {
         this.loginStatusSubject.next(err.status);
       });

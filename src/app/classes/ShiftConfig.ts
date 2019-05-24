@@ -1,16 +1,17 @@
 import { WeekDays } from 'src/app/classes/WeekDays';
-export class ShiftHours {
-    userId: number;
+import { Users } from './users';
+export class ShiftConfig {
+    users: Users;
     startTime: number;
     endTime: number;
-    weekDays: WeekDays;
+    weekdays: WeekDays;
     numberOfEmployees: number;
 
-    constructor(id: number, startTime: number, endTime: number, weekDays: WeekDays, numberOfEmployees: number) {
+    constructor(user: Users, startTime: number, endTime: number, weekDays: WeekDays, numberOfEmployees: number) {
         this.startTime = startTime;
         this.endTime = endTime;
-        this.weekDays = weekDays;
+        this.weekdays = weekDays;
         this.numberOfEmployees = numberOfEmployees;
-        this.userId = id;
+        this.users = user;
     }
 }
