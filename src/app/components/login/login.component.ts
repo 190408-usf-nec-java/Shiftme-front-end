@@ -36,8 +36,6 @@ export class LoginComponent implements OnInit {
     this.loginService.login(this.username, this.password);
     this.loginResponse = this.loginService.$loginStatus.subscribe(status => {
       if (status === 200) {
-        this.cookieService.set('role', this.loginService.currentUser.role);
-        console.log(this.loginService.currentUser);
         this.router.navigateByUrl('shifts');
       } else {
         this.lastStatus = status;

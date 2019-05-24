@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/internal/operators/map';
 import { Users } from '../classes/users';
 import { Credentials } from '../classes/credentials';
+import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +14,8 @@ export class ShiftService {
   private nextWeek: Week;
   private previousWeek: Week;
   private employees: Array<Users>;
+  private shiftStatusSubject = new Subject<number>();
+  public  $shiftStatus = this.shiftStatusSubject.asObservable();
   constructor(private httpClient: HttpClient) { }
 
   private fetchNextWeek(currentWeek: Week): void {
@@ -27,15 +30,17 @@ export class ShiftService {
     });
   }
   // This method is only run on component init
-  public fetchCurrentWeekByDate(date: string) {
-    this.httpClient.get(`http://localhost:8080/week/${date}`, {
+  public fetchCurrentWeekByUser(id: number) {
+    this.httpClient.get(`http://localhost:8081/week/${id}`, {
       observe: 'response',
     }).pipe(map(response => response.body as Week))
     .subscribe(response => {
-      // this.loginStatusSubject.next(200);
       this.currentWeek = response;
+      console.log('Shift service: ');
+      console.log(this.currentWeek);
+      this.shiftStatusSubject.next(200);
     }, err => {
-      // this.loginStatusSubject.next(err.status);
+      this.shiftStatusSubject.next(err.status);
     });
   }
   private fetchPreviousWeek(currentWeek: Week) {
@@ -43,10 +48,10 @@ export class ShiftService {
       observe: 'response',
     }).pipe(map(response => response.body as Week))
     .subscribe(response => {
-      // this.loginStatusSubject.next(200);
+      this.shiftStatusSubject.next(200);
       this.previousWeek = response;
     }, err => {
-      // this.loginStatusSubject.next(err.status);
+      this.shiftStatusSubject.next(err.status);
     });
   }
   public getCurrentWeek(): Week{

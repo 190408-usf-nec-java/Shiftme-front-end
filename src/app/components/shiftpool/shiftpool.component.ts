@@ -41,7 +41,7 @@ export class ShiftpoolComponent implements OnInit {
     console.log(date);
     // this.shiftService.fetchCurrentWeekByDate(date);
     // this.currentWeek = this.shiftService.getCurrentWeek(); commented out until backend is working
-    this.currentWeek = this.formatShiftsForDisplay(this.genSampleData());
+    //this.currentWeek = this.formatShiftsForDisplay(this.genSampleData());
     this.currentWeek = this.generateFillerShifts(this.currentWeek);
     this.currentDate = date;
 
@@ -185,7 +185,7 @@ export class ShiftpoolComponent implements OnInit {
 
 
 
-  genSampleData(): Week {
+  /*genSampleData(): Week {
     let bob = new Users('Bob', 'Sather', 'bobsather@gmail.com', 'employee', 1,
       new Credentials('billyboy', 'aoishgoihsgohap dhgap0sygsadgh', 'bobsath'));
     let martha = new Users('Martha', 'Stuart', 'martha@margo.wiz', 'employee', 2,
@@ -217,5 +217,5 @@ export class ShiftpoolComponent implements OnInit {
     let days = new Array<Day>(monday, tuesday, wednesday, thursday, friday, saturday, sunday);
     let week = new Week(days, 1, new Date(days[0].date));
     return week;
-  }
+  }*/
 }

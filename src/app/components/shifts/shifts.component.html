@@ -97,7 +97,7 @@
     </div>
     <div class="shifts-wrapper col-11 d-flex flex-row justify-content-between bg-light">
       <div *ngIf="isCurrentDay(0)" class="day">
-        <div *ngFor="let shift of currentWeek.days[0].shifts" [class.empty]="shift.isEmptyShift" class="shift" 
+        <div *ngFor="let shift of currentWeek.days" [class.empty]="shift.isEmptyShift" class="shift" 
           (click)="openModal(template, shift)" [style.height]="getHeight(shift)"> 
           <ul class="emps-list">
             <li class="emps" *ngFor="let employee of shift.employees">{{ employee.firstname + ' ' + employee.lastname }}</li>
@@ -105,7 +105,7 @@
         </div>
       </div>
       <div *ngIf="isCurrentDay(1)" class="day">
-        <div *ngFor="let shift of currentWeek.days[1].shifts" [class.empty]="shift.isEmptyShift" class="shift" 
+        <div *ngFor="let shift of currentWeek.days" [class.empty]="shift.isEmptyShift" class="shift" 
         (click)="openModal(template, shift)" [style.height]="getHeight(shift)" >
         <ul class="emps-list">
             <li class="emps" *ngFor="let employee of shift.employees">{{ employee.firstname + ' ' + employee.lastname }}</li>
@@ -113,7 +113,7 @@
         </div>
       </div>
       <div *ngIf="isCurrentDay(2)" class="day">
-        <div *ngFor="let shift of currentWeek.days[2].shifts" [class.empty]="shift.isEmptyShift" class="shift" 
+        <div *ngFor="let shift of currentWeek.days" [class.empty]="shift.isEmptyShift" class="shift" 
         (click)="openModal(template, shift)" [style.height]="getHeight(shift)">
         <ul class="emps-list">
             <li class="emps" *ngFor="let employee of shift.employees">{{ employee.firstname + ' ' + employee.lastname }}</li>
@@ -121,28 +121,28 @@
         </div>
       </div>
       <div *ngIf="isCurrentDay(3)" class="day">
-        <div *ngFor="let shift of currentWeek.days[3].shifts" [class.empty]="shift.isEmptyShift" class="shift" 
+        <div *ngFor="let shift of currentWeek.days" [class.empty]="shift.isEmptyShift" class="shift" 
         (click)="openModal(template, shift)" [style.height]="getHeight(shift)"><ul class="emps-list">
             <li class="emps" *ngFor="let employee of shift.employees">{{ employee.firstname + ' ' + employee.lastname }}</li>
           </ul>
         </div>
       </div>
       <div *ngIf="isCurrentDay(4)" class="day">
-        <div *ngFor="let shift of currentWeek.days[4].shifts" class="shift" [class.empty]="shift.isEmptyShift"
+        <div *ngFor="let shift of currentWeek.days" class="shift" [class.empty]="shift.isEmptyShift"
         (click)="openModal(template, shift)" [style.height]="getHeight(shift)"><ul class="emps-list">
             <li class="emps" *ngFor="let employee of shift.employees">{{ employee.firstname + ' ' + employee.lastname }}</li>
           </ul>
         </div>
       </div>
       <div *ngIf="isCurrentDay(5)" class="day">
-        <div *ngFor="let shift of currentWeek.days[5].shifts" class="shift" [class.empty]="shift.isEmptyShift"
+        <div *ngFor="let shift of currentWeek.days" class="shift" [class.empty]="shift.isEmptyShift"
         (click)="openModal(template, shift)" [style.height]="getHeight(shift)"><ul class="emps-list">
             <li class="emps" *ngFor="let employee of shift.employees">{{ employee.firstname + ' ' + employee.lastname }}</li>
           </ul>
         </div>
       </div>
       <div *ngIf="isCurrentDay(6)" class="day">
-        <div *ngFor="let shift of currentWeek.days[6].shifts" class="shift" [class.empty]="shift.isEmptyShift"
+        <div *ngFor="let shift of currentWeek.days" class="shift" [class.empty]="shift.isEmptyShift"
         (click)="openModal(template, shift)" [style.height]="getHeight(shift)"><ul class="emps-list">
             <li class="emps" *ngFor="let employee of shift.employees">{{ employee.firstname + ' ' + employee.lastname }}</li>
           </ul>
