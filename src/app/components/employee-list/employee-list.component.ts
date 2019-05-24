@@ -17,20 +17,15 @@ export class EmployeeListComponent implements OnInit {
               private loginService: LoginService) { }
 
   ngOnInit() {
-    // if (!this.loginService.getLoggedIn()) {
-    //   this.router.navigateByUrl('login');
-    // }
+    if (!this.loginService.getLoggedIn()) {
+      this.router.navigateByUrl('login');
+    }
     this.employeeService.getAllUsers();
   }
-  // delete(user: Users) {
-  //   // this.employeeService.deleteUser(user.id);
-
-  //   // Delete this
-  //   const index: number = this.replaceMe.indexOf(user);
-  //   if (index !== -1) {
-  //     this.replaceMe.splice(index, 1);
-  //   }
-  // }
+  delete(user: Users) {
+    this.employeeService.deleteUser(user);
+    this.router.navigateByUrl('employee');
+  }
 
   create() {
     this.router.navigateByUrl('employee-create');
