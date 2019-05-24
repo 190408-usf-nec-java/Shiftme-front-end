@@ -13,7 +13,7 @@ export class ShiftService {
   private currentWeek: Week;
   private nextWeek: Week;
   private previousWeek: Week;
-  private employees: Array<Users>;
+  private employees: Array<Credentials>;
   private shiftStatusSubject = new Subject<number>();
   public  $shiftStatus = this.shiftStatusSubject.asObservable();
   constructor(private httpClient: HttpClient) { }
@@ -54,7 +54,7 @@ export class ShiftService {
       this.shiftStatusSubject.next(err.status);
     });
   }
-  public getCurrentWeek(): Week{
+  public getCurrentWeek(): Week {
     return this.currentWeek;
   }
   // Iterates through saved weeks forwards
@@ -69,18 +69,18 @@ export class ShiftService {
     this.currentWeek = this.previousWeek;
     this.fetchPreviousWeek(this.currentWeek); // this method sets previous week;
   }
-  public getEmployees(): Array<Users> {
+  public getEmployees(): Array<Credentials> {
     return this.employees;
   }
   public setEmployees(): void {
-    const bobCred = new Credentials('billyboy', 'aoishgoihsgohap dhgap0sygsadgh', 'bobsath');
-    const bob = new Users('Bob', 'Sather', 'bobsather@gmail.com', 'employee', 1, bobCred);
-    const martha = new Users('Martha', 'Stuart', 'martha@margo.wiz', 'employee', 2,
-      new Credentials('cookingiscool', 'aosihgoisahdpgoihaspdoigh', 'marthathecook'));
-    const monty = new Users('Monty', 'Python', 'monty@python.com', 'employee', 3,
-      new Credentials('hamsterparty', 'aosihgoisahdpgoihaspdoigh', 'montypython'));
-    const james = new Users('James', 'Bond', 'bonejamesbond@bond.com', 'employee', 4,
-      new Credentials('shakennotstirred', 'aosihgoisahdpgoihaspdoigh', 'jamesbond'));
-    this.employees = new Array<Users>(bob, martha, monty, james);
+    const bob = new Credentials('billyboy', 'aoishgoihsgohap dhgap0sygsadgh', 'bobsath',
+                new Users('Bob', 'Sather', 'bobsather@gmail.com', 2 ,  1));
+    const martha = new Credentials('cookingiscool', 'aosihgoisahdpgoihaspdoigh', 'marthathecook', 
+                   new Users('Martha', 'Stuart', 'martha@margo.wiz', 2, 1));
+    const monty = new Credentials('hamsterparty', 'aosihgoisahdpgoihaspdoigh', 'montypython',
+                  new Users('Monty', 'Python', 'monty@python.com', 2, 3));
+    const james = new Credentials('shakennotstirred', 'aosihgoisahdpgoihaspdoigh', 'jamesbond',
+                  new Users('James', 'Bond', 'bonejamesbond@bond.com', 2, 4));
+    this.employees = new Array<Credentials>(bob, martha, monty, james);
   }
 }

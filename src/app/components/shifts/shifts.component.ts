@@ -28,7 +28,7 @@ export class ShiftsComponent implements OnInit {
   };
   isEditMode = false;
   clickedShift: Shift;
-  currentEmployees: Array<Users>;
+  currentEmployees: Array<Credentials>;
   weekdays = new Array<string>();
   isitChanged: boolean;
 
@@ -36,7 +36,7 @@ export class ShiftsComponent implements OnInit {
               private router: Router) { }
 
   ngOnInit() {
-    if (!this.loginService.getLoggedIn()){
+    if (!this.loginService.getLoggedIn()) {
       this.router.navigateByUrl('login');
     }
     const today = new Date(Date.now());
@@ -79,7 +79,7 @@ export class ShiftsComponent implements OnInit {
   }
   openModal(template: TemplateRef<any>, shift: Shift) {
     this.clickedShift = shift;
-    if(!shift.isEmptyShift) {
+    if (!shift.isEmptyShift) {
       this.modalRef = this.modalService.show(template, this.config);
     }
   }
@@ -173,16 +173,16 @@ export class ShiftsComponent implements OnInit {
   }
   changeEmployee($event): void {
     for (const employee of this.currentEmployees) {
-      if(employee.credentials.username === $event.target.value) {
+      if(employee.username === $event.target.value) {
         this.clickedShift.employees.push(employee);
       }
     }
     this.isitChanged = true;
   }
 
-  employeeIsAlreadyAssigned(user: Users): string {
+  employeeIsAlreadyAssigned(user: Credentials): string {
     for (const i of this.clickedShift.employees) {
-      if (i.credentials.username === user.credentials.username) {
+      if (i.username === user.username) {
         return 'none';
       }
     }
@@ -196,7 +196,7 @@ export class ShiftsComponent implements OnInit {
   }
   delete(username: string) {
     for (const employee of this.currentEmployees) {
-      if (employee.credentials.username === username) {
+      if (employee.username === username) {
         const index = this.clickedShift.employees.indexOf(employee);
         console.log(this.clickedShift.employees);
         console.log(index);

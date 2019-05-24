@@ -4,10 +4,10 @@ import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { Users } from 'src/app/classes/users';
 import { Shift } from 'src/app/classes/shift';
 import { ShiftService } from 'src/app/services/shift.service';
-import { Credentials } from 'src/app/classes/credentials';
 import { Day } from 'src/app/classes/day';
 import { Router } from '@angular/router';
 import { LoginService } from 'src/app/services/login.service';
+import { Credentials } from 'src/app/classes/credentials';
 
 @Component({
   selector: 'app-shiftpool',
@@ -25,7 +25,7 @@ export class ShiftpoolComponent implements OnInit {
   };
   isEditMode = false;
   clickedShift: Shift;
-  currentEmployees: Array<Users>;
+  currentEmployees: Array<Credentials>;
   weekdays = new Array<string>();
   isitChanged: boolean;
 
@@ -33,7 +33,7 @@ export class ShiftpoolComponent implements OnInit {
               private loginService: LoginService) { }
 
   ngOnInit() {
-    if (!this.loginService.getLoggedIn()){
+    if (!this.loginService.getLoggedIn()) {
       this.router.navigateByUrl('login');
     }
     const today = new Date(Date.now());
@@ -148,15 +148,15 @@ export class ShiftpoolComponent implements OnInit {
   }
   changeEmployee($event): void {
     for (const employee of this.currentEmployees) {
-      if (employee.credentials.username === $event.target.value) {
+      if (employee.username === $event.target.value) {
         this.clickedShift.employees.push(employee);
       }
     }
     this.isitChanged = true;
   }
-  employeeIsAlreadyAssigned(user: Users): string {
+  employeeIsAlreadyAssigned(user: Credentials): string {
     for (const i of this.clickedShift.employees) {
-      if (i.credentials.username === user.credentials.username) {
+      if (i.username === user.username) {
         return 'none';
       }
     }
@@ -170,7 +170,7 @@ export class ShiftpoolComponent implements OnInit {
   }
   delete(username: string) {
     for (const employee of this.currentEmployees) {
-      if (employee.credentials.username === username) {
+      if (employee.username === username) {
         const index = this.clickedShift.employees.indexOf(employee);
         console.log(this.clickedShift.employees);
         console.log(index);

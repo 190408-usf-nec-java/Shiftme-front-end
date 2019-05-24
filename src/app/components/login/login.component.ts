@@ -46,7 +46,7 @@ export class LoginComponent implements OnInit {
     if (this.userValid()) {
       return 'form-control is-valid col-12';
     } else {
-      return 'form-control is-invalid col-12'
+      return 'form-control is-invalid col-12';
     }
   }
   validationClassesForPassword(): string {

@@ -13,57 +13,18 @@ import { LoginService } from 'src/app/services/login.service';
 })
 export class EmployeeListComponent implements OnInit {
 
-  replaceMe: Users[];
-
   constructor(private employeeService: EmployeeService, private httpClient: HttpClient, private router: Router,
               private loginService: LoginService) { }
 
   ngOnInit() {
-    console.log(!this.loginService.getLoggedIn());
     if (!this.loginService.getLoggedIn()) {
       this.router.navigateByUrl('login');
     }
-    this.replaceMe = [
-      new Users(
-        'Humberto',
-        'Dio',
-        'hdio@hotmail.com',
-        'Good looks',
-        666,
-        new Credentials('yoMama', 'yoMamasMama', 'hdio')
-      ),
-
-      new Users(
-        'Nope',
-        'Nada',
-        'nothing@hotmail.com',
-        'Nihilist',
-        0,
-        new Credentials('noValue', 'noWorth', 'noTruth')
-      ),
-
-      new Users(
-        'Three',
-        'Is',
-        'perfect@hotmail.com',
-        'number',
-        3,
-        new Credentials('trinity', 'triumvirate', 'threeLayeredCake')
-      )
-    ];
-
-    this.replaceMe.push(JSON.parse(sessionStorage.getItem('newUser')));
-
-
+    this.employeeService.getAllUsers();
   }
   delete(user: Users) {
-    // this.employeeService.deleteUser(user.id);
-
-    // Delete this
-    const index: number = this.replaceMe.indexOf(user);
-    if (index !== -1) {
-      this.replaceMe.splice(index, 1);
-    }
+    this.employeeService.deleteUser(user);
+    this.router.navigateByUrl('employee');
   }
 
   create() {

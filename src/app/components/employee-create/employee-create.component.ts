@@ -12,7 +12,7 @@ import { LoginService } from 'src/app/services/login.service';
 })
 export class EmployeeCreateComponent implements OnInit {
 
-  @Input() user: Users = new Users('', '', '', '', -1, null);
+  @Input() user: Users = new Users('', '', '', -1, -1);
   @Input() username = '';
   @Input() password = '';
   @Input() passwordConfirmation = '';
@@ -26,10 +26,9 @@ export class EmployeeCreateComponent implements OnInit {
   }
 
   onSubmit() {
-    // employeeService.createUser();
-
-    this.user.credentials = new Credentials(this.password, '', this.username);
-    sessionStorage.setItem('newUser', JSON.stringify(this.user));
+    // this.user.credentials = new Credentials(this.password, '', this.username);
+    const deleteMe: Credentials = new Credentials('cmCM11!!1', '', 'charlesManson', new Users('Charles', 'Manson', 'cm@hotmail.com', 1, -1));
+    this.employeeService.createUser(deleteMe);
     this.router.navigateByUrl('employee');
   }
 
