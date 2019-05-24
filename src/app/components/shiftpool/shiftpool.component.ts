@@ -33,12 +33,15 @@ export class ShiftpoolComponent implements OnInit {
               private loginService: LoginService) { }
 
   ngOnInit() {
+    if (!this.loginService.getLoggedIn()) {
+      this.router.navigateByUrl('login');
+    }
     const today = new Date(Date.now());
     const date = this.formartToUsableDate(today);
     console.log(date);
     // this.shiftService.fetchCurrentWeekByDate(date);
     // this.currentWeek = this.shiftService.getCurrentWeek(); commented out until backend is working
-    this.currentWeek = this.formatShiftsForDisplay(this.genSampleData());
+    //this.currentWeek = this.formatShiftsForDisplay(this.genSampleData());
     this.currentWeek = this.generateFillerShifts(this.currentWeek);
     this.currentDate = date;
 
@@ -182,17 +185,17 @@ export class ShiftpoolComponent implements OnInit {
 
 
 
-  genSampleData(): Week {
-    let bob = new Credentials('billyboy', 'aoishgoihsgohap dhgap0sygsadgh', 'bobsath', 
-              new Users('Bob', 'Sather', 'bobsather@gmail.com', 2, 1));
-    let martha = new Credentials('cookingiscool', 'aosihgoisahdpgoihaspdoigh', 'marthathecook', 
-                 new Users('Martha', 'Stuart', 'martha@margo.wiz', 2, 2));
-    let monty = new Credentials('hamsterparty', 'aosihgoisahdpgoihaspdoigh', 'montypython', 
-                new Users('Monty', 'Python', 'monty@python.com', 2, 3));
-    let james = new Credentials('shakennotstirred', 'aosihgoisahdpgoihaspdoigh', 'jamesbond', 
-                new Users('James', 'Bond', 'bonejamesbond@bond.com', 2, 4));
-    let emps = new Array<Credentials>(martha, bob);
-    let emps2 = new Array<Credentials>(monty, james);
+  /*genSampleData(): Week {
+    let bob = new Users('Bob', 'Sather', 'bobsather@gmail.com', 'employee', 1,
+      new Credentials('billyboy', 'aoishgoihsgohap dhgap0sygsadgh', 'bobsath'));
+    let martha = new Users('Martha', 'Stuart', 'martha@margo.wiz', 'employee', 2,
+      new Credentials('cookingiscool', 'aosihgoisahdpgoihaspdoigh', 'marthathecook'));
+    let monty = new Users('Monty', 'Python', 'monty@python.com', 'employee', 3,
+      new Credentials('hamsterparty', 'aosihgoisahdpgoihaspdoigh', 'montypython'));
+    let james = new Users('James', 'Bond', 'bonejamesbond@bond.com', 'employee', 4,
+      new Credentials('shakennotstirred', 'aosihgoisahdpgoihaspdoigh', 'jamesbond'));
+    let emps = new Array<Users>(martha, bob);
+    let emps2 = new Array<Users>(monty, james);
     let fShift = new Shift(1, 9, 12, emps, 2);
     let nshift = new Shift(3, 3, 16, emps2, 2);
     let sshift = new Shift(2, 17, 20, emps2, 2);
@@ -214,5 +217,5 @@ export class ShiftpoolComponent implements OnInit {
     let days = new Array<Day>(monday, tuesday, wednesday, thursday, friday, saturday, sunday);
     let week = new Week(days, 1, new Date(days[0].date));
     return week;
-  }
+  }*/
 }

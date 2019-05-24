@@ -3,6 +3,7 @@ import { Users } from 'src/app/classes/users';
 import { Credentials } from 'src/app/classes/credentials';
 import { EmployeeService } from 'src/app/services/employee.service';
 import { Router } from '@angular/router';
+import { LoginService } from 'src/app/services/login.service';
 
 @Component({
   selector: 'app-employee-create',
@@ -16,9 +17,12 @@ export class EmployeeCreateComponent implements OnInit {
   @Input() password = '';
   @Input() passwordConfirmation = '';
 
-  constructor(private employeeService: EmployeeService, private router: Router) { }
+  constructor(private employeeService: EmployeeService, private loginService: LoginService, private router: Router) { }
 
   ngOnInit() {
+    if (!this.loginService.getLoggedIn()) {
+      this.router.navigateByUrl('login');
+    }
   }
 
   onSubmit() {

@@ -15,8 +15,8 @@ import { Router } from '@angular/router';
   styleUrls: ['./shifts.component.css']
 })
 export class ShiftsComponent implements OnInit {
-
-  currentWeek: Week;
+  loaded = false;
+  currentWeek: Week = {days: null, id: null, startDate: null};
   currentDay = 0;
   currentDate;
   weekOrDay: string;
@@ -34,33 +34,48 @@ export class ShiftsComponent implements OnInit {
               private router: Router) { }
 
   ngOnInit() {
-    if (!this.loginService.getLoggedIn()){
+    if (!this.loginService.getLoggedIn()) {
       this.router.navigateByUrl('login');
     }
     const today = new Date(Date.now());
     const date = this.formartToUsableDate(today);
-    console.log(date);
-    // this.shiftService.fetchCurrentWeekByDate(date);
-    // this.currentWeek = this.shiftService.getCurrentWeek(); commented out until backend is working
-    this.currentWeek = this.formatShiftsForDisplay(this.genSampleData());
-    this.currentWeek = this.generateFillerShifts(this.currentWeek);
     this.currentDate = date;
-
-    this.currentWeek.days.forEach( day => {
-      this.weekdays.push(this.formartToUsableDate(day.date));
-    });
     if (this.isSmallScreen()) {
       this.weekOrDay = 'Day';
     } else {
       this.weekOrDay = 'Week';
     }
+    this.currentWeek = this.genSampleData();
+    console.log(this.currentWeek.days);
+    this.shiftService.fetchCurrentWeekByUser(2);
+    this.shiftService.$shiftStatus.subscribe( status => {
+      if (status === 200) {
+        this.loaded = true;
+        console.log('before populate: ');
+        console.log(this.currentWeek);
+        this.populateShifts();
+      } else {
+        console.log('There was an error');
+      }
+    });
+    // this.currentWeek = this.formatShiftsForDisplay(this.genSampleData());
+  }
+  populateShifts() {
+    this.currentWeek = this.shiftService.getCurrentWeek();
+    console.log('populateShifts: ');
+    console.log(this.currentWeek);
+    this.currentWeek = this.generateFillerShifts(this.currentWeek);
+
+    this.currentWeek.days.forEach( day => {
+      this.weekdays.push(this.formartToUsableDate(day.date));
+    });
     this.shiftService.setEmployees();
-    this.currentEmployees = this.shiftService.getEmployees();
-    console.log(this.currentEmployees);
+    // this.currentEmployees = this.shiftService.getEmployees();
+    // console.log(this.currentEmployees);
   }
   openModal(template: TemplateRef<any>, shift: Shift) {
     this.clickedShift = shift;
-    if(!shift.isEmptyShift) {
+    if (!shift.isEmptyShift) {
       this.modalRef = this.modalService.show(template, this.config);
     }
   }
@@ -118,7 +133,8 @@ export class ShiftsComponent implements OnInit {
     return week;
   }
   generateFillerShifts(week: Week): Week {
-    const blankShift = new Shift(0, 0, 1, null, 0, true);
+    console.log('week = ');
+    console.log(week.days);
     week.days.forEach(day => {
       const emptyShifts = new Array<Shift>();
       if (day.shifts !== undefined) {
@@ -146,6 +162,9 @@ export class ShiftsComponent implements OnInit {
   }
   isitEditMode(): boolean {
     return this.isEditMode;
+  }
+  isLoaded(): boolean {
+    return this.loaded;
   }
   changeEmployee($event): void {
     for (const employee of this.currentEmployees) {
@@ -183,41 +202,50 @@ export class ShiftsComponent implements OnInit {
   isChanged(): boolean {
     return this.isitChanged;
   }
+  convertToArray(map: Map<string, Day>) {
+    const array = new Array<Day>();
+    map.forEach(day => {
+      array.push(day);
+    });
+  }
   // 768 is small breakpoint for bootstrap
 
-
-
+  /*genEmptyWeek(): Week {
+    const days = new Array<Day>();
+    for (let i = 0; i < 7; i++) {
+      days.push(new Day(new Date(Date.now()), new Array<Shift>()));
+    }
+    return new Week(days,  1, new Date(''));
+  }*/
   genSampleData(): Week {
-    let bob = new Credentials('billyboy', 'aoishgoihsgohap dhgap0sygsadgh', 'bobsath', 
-              new Users('Bob', 'Sather', 'bobsather@gmail.com', 2, 1));
-    let martha = new Credentials('cookingiscool', 'aosihgoisahdpgoihaspdoigh', 'marthathecook',
-                 new Users('Martha', 'Stuart', 'martha@margo.wiz', 2, 2));
-    let monty = new Credentials('hamsterparty', 'aosihgoisahdpgoihaspdoigh', 'montypython',
-                new Users('Monty', 'Python', 'monty@python.com', 2, 3));
-    let james = new Credentials('shakennotstirred', 'aosihgoisahdpgoihaspdoigh', 'jamesbond',
-                new Users('James', 'Bond', 'bonejamesbond@bond.com', 2, 4));
-    let emps = new Array<Credentials>(martha, bob);
-    let emps2 = new Array<Credentials>(monty, james);
-    let fShift = new Shift(1, 9, 12, emps, 2);
-    let nshift = new Shift(3, 3, 16, emps2, 2);
+    /*let bob = new Users('Bob', 'Sather', 'bobsather@gmail.com', 'employee', 1,
+      new Credentials('billyboy', 'aoishgoihsgohap dhgap0sygsadgh', 'bobsath'));
+    let martha = new Users('Martha', 'Stuart', 'martha@margo.wiz', 'employee', 2,
+      new Credentials('cookingiscool', 'aosihgoisahdpgoihaspdoigh', 'marthathecook'));
+    let monty = new Users('Monty', 'Python', 'monty@python.com', 'employee', 3,
+      new Credentials('hamsterparty', 'aosihgoisahdpgoihaspdoigh', 'montypython'));
+    let james = new Users('James', 'Bond', 'bonejamesbond@bond.com', 'employee', 4,
+      new Credentials('shakennotstirred', 'aosihgoisahdpgoihaspdoigh', 'jamesbond'));*/
+    let shift = new Shift(1, 0 , 0, null, 2, true);
+    /*let nshift = new Shift(3, 3, 16, emps2, 2);
     let sshift = new Shift(2, 17, 20, emps2, 2);
-    let tshift = new Shift(0, 1, 9, emps, 2);
-    let shifts1 = new Array<Shift>(sshift, fShift, tshift);
-    let shifts2 = new Array<Shift>(nshift);
+    let tshift = new Shift(0, 1, 9, emps, 2);*/
+    let shifts1 = new Array<Shift>(shift);
+    /*let shifts2 = new Array<Shift>(nshift);
     let shifts3 = new Array<Shift>(sshift, fShift, tshift);
     let shifts4 = new Array<Shift>(nshift);
     let shifts5 = new Array<Shift>(sshift, fShift, tshift);
     let shifts6 = new Array<Shift>(sshift, fShift, tshift);
-    let shifts7 = new Array<Shift>(sshift, fShift, tshift);
-    let monday = new Day(new Date('5/6/2019'), shifts6);
-    let tuesday = new Day(new Date('5/7/2019'), shifts5);
-    let wednesday = new Day(new Date('5/8/2019'), shifts3);
-    let thursday = new Day(new Date('5/9/2019'), shifts7);
+    let shifts7 = new Array<Shift>(sshift, fShift, tshift);*/
+    let monday = new Day(new Date('5/6/2019'), shifts1);
+    let tuesday = new Day(new Date('5/7/2019'), shifts1);
+    let wednesday = new Day(new Date('5/8/2019'), shifts1);
+    let thursday = new Day(new Date('5/9/2019'), shifts1);
     let friday = new Day(new Date('5/10/2019'), shifts1);
-    let saturday = new Day(new Date('5/11/2019'), shifts2);
-    let sunday = new Day(new Date('5/12/2019'), shifts4);
-    let days = new Array<Day>(monday, tuesday, wednesday, thursday, friday, saturday, sunday);
-    let week = new Week(days, 1, new Date(days[0].date));
+    let saturday = new Day(new Date('5/11/2019'), shifts1);
+    let sunday = new Day(new Date('5/12/2019'), shifts1);
+    //let days = new Map<string, Day>('MONDAY', monday, tuesday, wednesday, thursday, friday, saturday, sunday);
+    let week = new Week(/*days*/ null, 1, new Date(Date.now()));
     return week;
   }
 

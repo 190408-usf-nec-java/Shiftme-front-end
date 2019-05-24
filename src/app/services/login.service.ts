@@ -16,7 +16,7 @@ export class LoginService {
 
   username: string;
   password: string;
-  private loggedIn: boolean;
+  private loggedIn = false;
 
   login(username: string, password: string): void {
     const payload = {
@@ -27,9 +27,10 @@ export class LoginService {
       observe: 'response',
       }).pipe(map(response => response.body as Users))
       .subscribe(response => {
-        this.loginStatusSubject.next(200);
         this.currentUser = response;
+        this.cookieService.set('role', this.currentUser.role.toString());
         this.loggedIn = true;
+        this.loginStatusSubject.next(200);
       }, err => {
         this.loginStatusSubject.next(err.status);
       });

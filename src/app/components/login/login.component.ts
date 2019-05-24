@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { LoginService } from 'src/app/services/login.service';
 import { Subscription } from 'rxjs';
-import{ Users } from 'src/app/classes/users';
+import { Users } from 'src/app/classes/users';
+import { Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -13,17 +15,10 @@ export class LoginComponent implements OnInit {
   loginResponse: Subscription;
   lastStatus = 200;
 
-  constructor(private loginService: LoginService) { }
+  constructor(private loginService: LoginService, private router: Router, private cookieService: CookieService) { }
 
   ngOnInit() {
-    this.loginService.currentUser = new Users('Amna', null, null, null, 1);
-    this.loginResponse = this.loginService.$loginStatus.subscribe(status => {
-      if (status === 200) {
-        
-      } else {
-        this.lastStatus = status;
-      }
-    });
+    //this.loginService.currentUser = new Users('Amna', null,null,null,1,null);
   }
 
   ngOnDestroy() {
@@ -39,6 +34,13 @@ export class LoginComponent implements OnInit {
   }
   submit() {
     this.loginService.login(this.username, this.password);
+    this.loginResponse = this.loginService.$loginStatus.subscribe(status => {
+      if (status === 200) {
+        this.router.navigateByUrl('shifts');
+      } else {
+        this.lastStatus = status;
+      }
+    });
   }
   validationClassesForUser(): string {
     if (this.userValid()) {
