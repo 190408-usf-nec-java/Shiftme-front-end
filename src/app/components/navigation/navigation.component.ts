@@ -19,8 +19,6 @@ export class NavigationComponent implements OnInit {
   managerValid(): boolean{
     if(this.loginService.currentUser.role === 'manager'){
       return true;
-    }
+    };
   }
-
-
 }
