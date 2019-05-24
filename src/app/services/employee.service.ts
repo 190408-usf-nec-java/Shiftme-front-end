@@ -3,16 +3,30 @@ import { HttpClient } from '@angular/common/http';
 import { Users } from '../classes/users';
 import { Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { Credentials } from '../classes/credentials';
 
 @Injectable({
   providedIn: 'root'
 })
 export class EmployeeService {
 
-  private loginStatusSubject = new Subject<number>();
-  public $loginStatus = this.loginStatusSubject.asObservable();
+  listUsers: Array<Users> = [];
 
   constructor(private httpClient: HttpClient) { }
+
+  // token sha52, secure random byte array
+
+  getAllUsers() {
+    this.httpClient.get('http://localhost:8081/people', {
+      observe: 'response'
+    }).subscribe(response => {
+      const user = JSON.stringify(response.body);
+      console.log(user);
+      this.listUsers = JSON.parse(user);
+    }, err => {
+      console.log(err);
+    });
+  }
 
   deleteUser(id: number): void {
     // const listUsers = JSON.parse(sessionStorage.getItem('users'));
@@ -34,7 +48,7 @@ export class EmployeeService {
     throw new Error('Method not implemented.');
   }
 
-  createUser(user: Users) {
+  createUser(cred: Credentials) {
     // const listUsers = JSON.parse(sessionStorage.getItem('users'));
     // user: User = listUsers.getItem(id);
     // this.httpClient.post('http://localhost:8080/addEmployee', JSON.stringify(user) {
@@ -49,12 +63,13 @@ export class EmployeeService {
     //   }, err => {
     //     this.loginStatusSubject.next(err.status);
     //   });
-    console.log(user);
-    this.httpClient.post('http://localhost:8081/people', user, {
+    console.log(cred);
+    this.httpClient.post('http://localhost:8081/cred/create', cred, {
       observe: 'response'
-    }).pipe(map(response => response.body as string))
-    .subscribe(response => {
-      console.log(response);
+    }).subscribe(response => {
+      const user = JSON.stringify(response.body);
+      console.log(user);
+      this.listUsers.push(JSON.parse(user));
     }, err => {
       console.log(err);
     });

@@ -7,6 +7,7 @@ import { ShiftService } from 'src/app/services/shift.service';
 import { Day } from 'src/app/classes/day';
 import { Router } from '@angular/router';
 import { LoginService } from 'src/app/services/login.service';
+import { Credentials } from 'src/app/classes/credentials';
 
 @Component({
   selector: 'app-shiftpool',
@@ -24,7 +25,7 @@ export class ShiftpoolComponent implements OnInit {
   };
   isEditMode = false;
   clickedShift: Shift;
-  currentEmployees: Array<Users>;
+  currentEmployees: Array<Credentials>;
   weekdays = new Array<string>();
   isitChanged: boolean;
 
@@ -144,15 +145,15 @@ export class ShiftpoolComponent implements OnInit {
   }
   changeEmployee($event): void {
     for (const employee of this.currentEmployees) {
-      if (employee.id === $event.target.value) {
+      if (employee.username === $event.target.value) {
         this.clickedShift.employees.push(employee);
       }
     }
     this.isitChanged = true;
   }
-  employeeIsAlreadyAssigned(user: Users): string {
+  employeeIsAlreadyAssigned(user: Credentials): string {
     for (const i of this.clickedShift.employees) {
-      if (i.id === user.id) {
+      if (i.username === user.username) {
         return 'none';
       }
     }
@@ -164,9 +165,9 @@ export class ShiftpoolComponent implements OnInit {
   save() {
     this.isEditMode = false;
   }
-  delete(id: number) {
+  delete(username: string) {
     for (const employee of this.currentEmployees) {
-      if (employee.id === id) {
+      if (employee.username === username) {
         const index = this.clickedShift.employees.indexOf(employee);
         console.log(this.clickedShift.employees);
         console.log(index);
@@ -182,12 +183,16 @@ export class ShiftpoolComponent implements OnInit {
 
 
   genSampleData(): Week {
-    let bob = new Users('Bob', 'Sather', 'bobsather@gmail.com', -1, 1);
-    let martha = new Users('Martha', 'Stuart', 'martha@margo.wiz', -1, 2);
-    let monty = new Users('Monty', 'Python', 'monty@python.com', -1, 3);
-    let james = new Users('James', 'Bond', 'bonejamesbond@bond.com', -1, 4);
-    let emps = new Array<Users>(martha, bob);
-    let emps2 = new Array<Users>(monty, james);
+    let bob = new Credentials('billyboy', 'aoishgoihsgohap dhgap0sygsadgh', 'bobsath', 
+              new Users('Bob', 'Sather', 'bobsather@gmail.com', 2, 1));
+    let martha = new Credentials('cookingiscool', 'aosihgoisahdpgoihaspdoigh', 'marthathecook', 
+                 new Users('Martha', 'Stuart', 'martha@margo.wiz', 2, 2));
+    let monty = new Credentials('hamsterparty', 'aosihgoisahdpgoihaspdoigh', 'montypython', 
+                new Users('Monty', 'Python', 'monty@python.com', 2, 3));
+    let james = new Credentials('shakennotstirred', 'aosihgoisahdpgoihaspdoigh', 'jamesbond', 
+                new Users('James', 'Bond', 'bonejamesbond@bond.com', 2, 4));
+    let emps = new Array<Credentials>(martha, bob);
+    let emps2 = new Array<Credentials>(monty, james);
     let fShift = new Shift(1, 9, 12, emps, 2);
     let nshift = new Shift(3, 3, 16, emps2, 2);
     let sshift = new Shift(2, 17, 20, emps2, 2);

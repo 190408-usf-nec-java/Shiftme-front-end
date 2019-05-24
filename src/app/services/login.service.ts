@@ -23,7 +23,7 @@ export class LoginService {
       username: username,
       password: password
     }
-    this.httpClient.post('http://localhost:8080/login', payload, {
+    this.httpClient.post('http://localhost:8081/cred/login', payload, {
       observe: 'response',
       }).pipe(map(response => response.body as Users))
       .subscribe(response => {

@@ -160,14 +160,14 @@
         <div class="col-12">Start Time: {{ clickedShift.startTime }}</div>
         <div class="col-12">End Time: {{ clickedShift.endTime }}</div>
         <div *ngFor="let employee of clickedShift.employees" class="col-12 d-flex justify-content-between">
-          Employee: {{ employee.id }}
-          <button *ngIf="isitEditMode()" (click)="delete(employee.id)" class="btn btn-danger">Delete</button>
+          Employee: {{ employee.username }}
+          <button *ngIf="isitEditMode()" (click)="delete(employee.username)" class="btn btn-danger">Delete</button>
         </div>
         <div class="form-group" *ngIf="isManager() && isitEditMode()">
           <select (change)="changeEmployee($event)" class="form-control">
             <option [style.display]="employeeIsAlreadyAssigned(employee)"
               *ngFor="let employee of currentEmployees">
-              {{ employee.id }}
+              {{ employee.username }}
             </option>
           </select>
         </div>
