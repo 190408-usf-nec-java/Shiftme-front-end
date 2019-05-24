@@ -16,14 +16,11 @@ export class ShiftConfigComponent implements OnInit {
   constructor(private loginService: LoginService, private shiftConfigService: ShiftConfigService, private router: Router) { }
 
   ngOnInit() {
-<<<<<<< HEAD
    console.log(this.loginService.currentUser.role);
-=======
     if (!this.loginService.getLoggedIn()) {
       this.router.navigateByUrl('login');
     }
    console.log(this.loginService.currentUser.firstname);
->>>>>>> 36c9c86db1af45a7634744c9965c749369ce7201
   }
 
   submit(){

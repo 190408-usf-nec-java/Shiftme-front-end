@@ -3,33 +3,22 @@
     <img class="navbar-toggler-icon" alt="navigation menu" src="./assets/img/hamburger.png"></button>
   <div id="navbar-content" class="d-none d-lg-block">  
     <ul class="navbar-nav">
-<<<<<<< HEAD
       <li class="nav-item" >
         <a routerLink="shifts" class="nav-link text-white hover-light">Schedule</a>
       </li>
-      <li class="nav-item" *ngIf = "managerValid()">
-          <a routerLink="shift-config" class="nav-link text-white hover-light">Adding Shifts</a>
-        </li>
         <li class="nav-item"  *ngIf = "managerValid()">
             <a routerLink="employee" class="nav-link text-white hover-light">Manage Employees</a>
           </li>
       <li class="nav-item">
 
-        <a routerLink="login" class="nav-link text-white hover-light">Employees</a>
-=======
-      <li class="nav-item">
-        <a routerLink="shifts" class="nav-link text-white hover-light">Schedule</a>
-      </li>
-      <li class="nav-item">
+        <a routerLink="login" class="nav-link text-white hover-light">Login</a>
+
+      <li class="nav-item" *ngIf = "managerValid()">
           <a routerLink="shift-config" class="nav-link text-white hover-light">Adding Shifts</a>
         </li>
-        <li class="nav-item">
-            <a routerLink="employee" class="nav-link text-white hover-light">Employees</a>
+        <li class="nav-item" >
+            <a routerLink="employee-create" class="nav-link text-white hover-light">Signup</a>
           </li>
-      <li class="nav-item">
-        <a routerLink="login" class="nav-link text-white hover-light">Login</a>
->>>>>>> 36c9c86db1af45a7634744c9965c749369ce7201
-      </li>
       <li class="nav-item">
         <a routerLink="open" class="nav-link text-white">Open Shifts</a>
       </li> 
