@@ -8,6 +8,7 @@ import { Day } from 'src/app/classes/day';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { LoginService } from 'src/app/services/login.service';
 import { Router } from '@angular/router';
+import { mapChildrenIntoArray } from '@angular/router/src/url_tree';
 
 @Component({
   selector: 'app-shifts',
@@ -16,7 +17,8 @@ import { Router } from '@angular/router';
 })
 export class ShiftsComponent implements OnInit {
   loaded = false;
-  currentWeek: Week = {days: null, id: null, startDate: null};
+  currentWeek: Week;
+  daysAsList: Array<Day> = [];
   currentDay = 0;
   currentDate;
   weekOrDay: string;
@@ -46,6 +48,7 @@ export class ShiftsComponent implements OnInit {
       this.weekOrDay = 'Week';
     }
     this.currentWeek = this.genSampleData();
+    // this.daysAsList = this.convertToArray(this.currentWeek.days);
     console.log(this.currentWeek.days);
     this.shiftService.fetchCurrentWeekByUser(2);
     this.shiftService.$shiftStatus.subscribe( status => {
@@ -62,16 +65,17 @@ export class ShiftsComponent implements OnInit {
   }
   populateShifts() {
     this.currentWeek = this.shiftService.getCurrentWeek();
+    this.daysAsList = this.convertToArray(this.currentWeek.days);
     console.log('populateShifts: ');
-    console.log(this.currentWeek);
-    this.currentWeek = this.generateFillerShifts(this.currentWeek);
+    console.log(this.daysAsList);
+    this.daysAsList = this.generateFillerShifts(this.daysAsList);
 
-    this.currentWeek.days.forEach( day => {
+    this.daysAsList.forEach( day => {
       this.weekdays.push(this.formartToUsableDate(day.date));
     });
     this.shiftService.setEmployees();
-    // this.currentEmployees = this.shiftService.getEmployees();
-    // console.log(this.currentEmployees);
+    this.currentEmployees = this.shiftService.getEmployees();
+    console.log(this.currentEmployees);
   }
   openModal(template: TemplateRef<any>, shift: Shift) {
     this.clickedShift = shift;
@@ -122,31 +126,32 @@ export class ShiftsComponent implements OnInit {
     return (today.getMonth() + 1) + '-' + today.getDate() + '-' + today.getFullYear();
   }
   getHeight(shift: Shift): string {
-    const height = ((shift.endTime - shift.startTime) / 24) * 100; // calculate percentage of day the shift is
+    console.log(shift);
+    const height = ((shift.endHour - shift.startHour) / 24) * 100; // calculate percentage of day the shift is
     const hPercent = height + '%';
+    console.log(hPercent);
     return hPercent;
   }
-  formatShiftsForDisplay(week: Week): Week {
-    week.days.forEach( day => {
-      day.shifts = day.shifts.sort((a, b) => a.startTime - b.startTime);
+  formatShiftsForDisplay(days: Array<Day>): Array<Day> {
+    days.forEach( day => {
+      day.shifts = day.shifts.sort((a, b) => a.startHour - b.startHour);
     });
-    return week;
+    return days;
   }
-  generateFillerShifts(week: Week): Week {
+  generateFillerShifts(days: Array<Day>): Array<Day> {
     console.log('week = ');
-    console.log(week.days);
-    let days = this.convertToArray(week.days);
-    week.days.forEach(day => {
+    console.log(days);
+    days.forEach(day => {
       const emptyShifts = new Array<Shift>();
       if (day.shifts !== undefined) {
-        if (day.shifts[0].startTime !== 0){
-          emptyShifts.push(new Shift(0, 0, day.shifts[0].startTime, null, 0, true));
+        if (day.shifts[0].startHour !== 0){
+          emptyShifts.push(new Shift(0, 0, day.shifts[0].startHour, null, 0, true));
         }
       }
       if (day.shifts !== undefined) {
         for (let i = 1; i < day.shifts.length; i++) {
-          if (day.shifts[i - 1].endTime !== day.shifts[i].startTime) {
-            emptyShifts.push(new Shift(0, day.shifts[i - 1].endTime, day.shifts[i].startTime, null, 0, true));
+          if (day.shifts[i - 1].endHour !== day.shifts[i].startHour) {
+            emptyShifts.push(new Shift(0, day.shifts[i - 1].endHour, day.shifts[i].startHour, null, 0, true));
           }
         }
       }
@@ -154,9 +159,8 @@ export class ShiftsComponent implements OnInit {
         day.shifts.push(shift);
       });
     });
-    console.log(week.days);
-    week = this.formatShiftsForDisplay(week);
-    return week;
+    days = this.formatShiftsForDisplay(days);
+    return days;
   }
   isManager(): boolean {
     return true;
@@ -203,11 +207,16 @@ export class ShiftsComponent implements OnInit {
   isChanged(): boolean {
     return this.isitChanged;
   }
-  convertToArray(map: Map<string, Day>) {
-    const array = new Array<Day>();
-    map.forEach(day => {
-      array.push(day);
+  convertToArray(map: any) {
+    console.log(map);
+    let array = new Array<Day>();
+    console.log('propertynames = ' + Object.getOwnPropertyNames(map));
+    Object.getOwnPropertyNames(map).forEach(day => {
+      array.push(map[day]);
     });
+    //array.push(map.get('MONDAY'));
+    //array.push(map.get('TUESDAY'));
+    return array;
   }
   // 768 is small breakpoint for bootstrap
 

@@ -41,7 +41,7 @@ export class ShiftpoolComponent implements OnInit {
     console.log(date);
     // this.shiftService.fetchCurrentWeekByDate(date);
     // this.currentWeek = this.shiftService.getCurrentWeek(); commented out until backend is working
-    //this.currentWeek = this.formatShiftsForDisplay(this.genSampleData());
+    // this.currentWeek = this.formatShiftsForDisplay(this.genSampleData());
     this.currentWeek = this.generateFillerShifts(this.currentWeek);
     this.currentDate = date;
 
