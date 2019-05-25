@@ -106,13 +106,13 @@ export class ShiftpoolComponent implements OnInit {
     return (today.getMonth() + 1) + '-' + today.getDate() + '-' + today.getFullYear();
   }
   getHeight(shift: Shift): string {
-    const height = ((shift.endTime - shift.startTime) / 24) * 100; // calculate percentage of day the shift is
+    const height = ((shift.endHour - shift.startHour) / 24) * 100; // calculate percentage of day the shift is
     const hPercent = height + '%';
     return hPercent;
   }
   formatShiftsForDisplay(week: Week): Week {
     week.days.forEach( day => {
-      day.shifts = day.shifts.sort((a, b) => a.startTime - b.startTime);
+      day.shifts = day.shifts.sort((a, b) => a.startHour - b.startHour);
     });
     return week;
   }
@@ -121,14 +121,14 @@ export class ShiftpoolComponent implements OnInit {
     week.days.forEach(day => {
       const emptyShifts = new Array<Shift>();
       if (day.shifts !== undefined) {
-        if (day.shifts[0].startTime !== 0) {
-          emptyShifts.push(new Shift(0, 0, day.shifts[0].startTime, null, 0, true));
+        if (day.shifts[0].startHour !== 0) {
+          emptyShifts.push(new Shift(0, 0, day.shifts[0].startHour, null, 0, true));
         }
       }
       if (day.shifts !== undefined) {
         for (let i = 1; i < day.shifts.length; i++) {
-          if (day.shifts[i - 1].endTime !== day.shifts[i].startTime) {
-            emptyShifts.push(new Shift(0, day.shifts[i - 1].endTime, day.shifts[i].startTime, null, 0, true));
+          if (day.shifts[i - 1].endHour !== day.shifts[i].startHour) {
+            emptyShifts.push(new Shift(0, day.shifts[i - 1].endHour, day.shifts[i].startHour, null, 0, true));
           }
         }
       }

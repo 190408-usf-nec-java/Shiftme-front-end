@@ -27,7 +27,7 @@ export class EmployeeService {
   }
 
   deleteUser(user: Users): void {
-    this.httpClient.delete('http://localhost:8081/people/' + user.user_id, {
+    this.httpClient.delete('http://localhost:8081/people/' + user.userid, {
       observe: 'response'
     }).subscribe(response => {
       console.log(response.body);
