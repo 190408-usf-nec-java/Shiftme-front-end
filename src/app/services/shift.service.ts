@@ -54,6 +54,15 @@ export class ShiftService {
       this.shiftStatusSubject.next(err.status);
     });
   }
+  sendUpdatedWeek(week: Week) {
+    this.httpClient.post('http://localhost:8081/week', week, {
+      observe: 'response',
+    }).subscribe(response => {
+      if (response.status === 200){
+        this.shiftStatusSubject.next(200);
+      }
+    });
+  }
   public getCurrentWeek(): Week {
     return this.currentWeek;
   }

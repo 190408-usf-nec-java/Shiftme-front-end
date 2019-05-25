@@ -28,7 +28,7 @@ export class ShiftsComponent implements OnInit {
   };
   isEditMode = false;
   clickedShift: Shift;
-  currentEmployees: Array<Credentials>;
+  currentEmployees: Array<Credentials> = [];
   weekdays = new Array<string>();
   isitChanged: boolean;
 
@@ -49,16 +49,12 @@ export class ShiftsComponent implements OnInit {
     }
     this.currentWeek = this.genSampleData();
     // this.daysAsList = this.convertToArray(this.currentWeek.days);
-    console.log(this.currentWeek.days);
     this.shiftService.fetchCurrentWeekByUser(2);
     this.shiftService.$shiftStatus.subscribe( status => {
       if (status === 200) {
         this.loaded = true;
-        console.log('before populate: ');
-        console.log(this.currentWeek);
         this.populateShifts();
       } else {
-        console.log('There was an error');
       }
     });
     // this.currentWeek = this.formatShiftsForDisplay(this.genSampleData());
@@ -66,8 +62,6 @@ export class ShiftsComponent implements OnInit {
   populateShifts() {
     this.currentWeek = this.shiftService.getCurrentWeek();
     this.daysAsList = this.convertToArray(this.currentWeek.days);
-    console.log('populateShifts: ');
-    console.log(this.daysAsList);
     this.daysAsList = this.generateFillerShifts(this.daysAsList);
 
     this.daysAsList.forEach( day => {
@@ -75,7 +69,6 @@ export class ShiftsComponent implements OnInit {
     });
     this.shiftService.setEmployees();
     this.currentEmployees = this.shiftService.getEmployees();
-    console.log(this.currentEmployees);
   }
   openModal(template: TemplateRef<any>, shift: Shift) {
     this.clickedShift = shift;
@@ -126,10 +119,8 @@ export class ShiftsComponent implements OnInit {
     return (today.getMonth() + 1) + '-' + today.getDate() + '-' + today.getFullYear();
   }
   getHeight(shift: Shift): string {
-    console.log(shift);
     const height = ((shift.endHour - shift.startHour) / 24) * 100; // calculate percentage of day the shift is
     const hPercent = height + '%';
-    console.log(hPercent);
     return hPercent;
   }
   formatShiftsForDisplay(days: Array<Day>): Array<Day> {
@@ -139,8 +130,6 @@ export class ShiftsComponent implements OnInit {
     return days;
   }
   generateFillerShifts(days: Array<Day>): Array<Day> {
-    console.log('week = ');
-    console.log(days);
     days.forEach(day => {
       const emptyShifts = new Array<Shift>();
       if (day.shifts !== undefined) {
@@ -172,8 +161,11 @@ export class ShiftsComponent implements OnInit {
     return this.loaded;
   }
   changeEmployee($event): void {
+    if (this.clickedShift.employees === null){
+      this.clickedShift.employees = new Array<Credentials>();
+    }
     for (const employee of this.currentEmployees) {
-      if(employee.username === $event.target.value) {
+      if (employee.username === $event.target.value) {
         this.clickedShift.employees.push(employee);
       }
     }
@@ -181,9 +173,12 @@ export class ShiftsComponent implements OnInit {
   }
 
   employeeIsAlreadyAssigned(user: Credentials): string {
-    for (const i of this.clickedShift.employees) {
-      if (i.username === user.username) {
-        return 'none';
+    if(this.clickedShift.employees !== null){
+        for (const i of this.clickedShift.employees) {
+        if (i.username === user.username) {
+          return 'none';
+        }
+
       }
     }
     return 'block';
@@ -198,8 +193,6 @@ export class ShiftsComponent implements OnInit {
     for (const employee of this.currentEmployees) {
       if (employee.username === username) {
         const index = this.clickedShift.employees.indexOf(employee);
-        console.log(this.clickedShift.employees);
-        console.log(index);
         this.clickedShift.employees.splice(index, 1);
       }
     }
@@ -208,15 +201,38 @@ export class ShiftsComponent implements OnInit {
     return this.isitChanged;
   }
   convertToArray(map: any) {
-    console.log(map);
     let array = new Array<Day>();
-    console.log('propertynames = ' + Object.getOwnPropertyNames(map));
     Object.getOwnPropertyNames(map).forEach(day => {
       array.push(map[day]);
     });
     //array.push(map.get('MONDAY'));
     //array.push(map.get('TUESDAY'));
     return array;
+  }
+  convertToMap(array: Array<Day>, map: any) {
+    let i = 0;
+    Object.getOwnPropertyNames(map).forEach(day => {
+      if (i < array.length) {
+        console.log(map[array[i].name]);
+        // map[array[i].name] = array[i];
+        if (array[i].shifts[0].employees !== null){
+          console.log(array[i].name);
+        }
+        i++;
+      }
+    });
+    console.log(map);
+    // array.push(map.get('MONDAY'));
+    // array.push(map.get('TUESDAY'));
+    // return map;
+  }
+  submitWeek() {
+    console.log('hey there');
+    // let week: Week;
+    console.log(this.daysAsList);
+    console.log(this.currentWeek);
+    this.convertToMap(this.daysAsList, this.currentWeek.days);
+    // this.shiftService.sendUpdatedWeek(week);
   }
   // 768 is small breakpoint for bootstrap
 
@@ -247,13 +263,13 @@ export class ShiftsComponent implements OnInit {
     let shifts5 = new Array<Shift>(sshift, fShift, tshift);
     let shifts6 = new Array<Shift>(sshift, fShift, tshift);
     let shifts7 = new Array<Shift>(sshift, fShift, tshift);*/
-    let monday = new Day(new Date('5/6/2019'), shifts1);
+    /*let monday = new Day(new Date('5/6/2019'), shifts1);
     let tuesday = new Day(new Date('5/7/2019'), shifts1);
     let wednesday = new Day(new Date('5/8/2019'), shifts1);
     let thursday = new Day(new Date('5/9/2019'), shifts1);
     let friday = new Day(new Date('5/10/2019'), shifts1);
     let saturday = new Day(new Date('5/11/2019'), shifts1);
-    let sunday = new Day(new Date('5/12/2019'), shifts1);
+    let sunday = new Day(new Date('5/12/2019'), shifts1);*/
     //let days = new Map<string, Day>('MONDAY', monday, tuesday, wednesday, thursday, friday, saturday, sunday);
     let week = new Week(/*days*/ null, 1, new Date(Date.now()));
     return week;

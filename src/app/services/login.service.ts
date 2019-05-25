@@ -13,7 +13,7 @@ export class LoginService {
   public  $loginStatus = this.loginStatusSubject.asObservable();
   currentUser: Users;
   constructor(private httpClient: HttpClient, private cookieService: CookieService) { }
-
+  
   username: string;
   password: string;
   private loggedIn = false;

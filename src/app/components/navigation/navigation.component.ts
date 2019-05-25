@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { LoginService } from 'src/app/services/login.service';
+import { CookieService } from 'ngx-cookie-service';
 
 
 
@@ -16,7 +17,7 @@ import { LoginService } from 'src/app/services/login.service';
 export class NavigationComponent implements OnInit {
 
 
-  constructor(private loginService:LoginService) { }
+  constructor(private cookieService: CookieService) { }
 
 
 
@@ -29,7 +30,8 @@ export class NavigationComponent implements OnInit {
   }
 
   managerValid(): boolean {
-      if( this.loginService.currentUser.role === 2){
+
+      if (this.cookieService.get('role') === '2') {
           return true;
       }
   }
