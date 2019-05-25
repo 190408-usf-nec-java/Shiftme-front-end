@@ -55,7 +55,7 @@ export class ShiftService {
     });
   }
   sendUpdatedWeek(week: Week) {
-    this.httpClient.post('http://localhost:8081/week', week, {
+    this.httpClient.put('http://localhost:8081/week', week, {
       observe: 'response',
     }).subscribe(response => {
       if (response.status === 200){
