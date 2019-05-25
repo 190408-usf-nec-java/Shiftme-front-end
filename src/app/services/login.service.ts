@@ -39,4 +39,8 @@ export class LoginService {
   getLoggedIn(): boolean {
     return this.loggedIn;
   }
+
+  logOff() {
+    this.loggedIn = false;
+  }
 }

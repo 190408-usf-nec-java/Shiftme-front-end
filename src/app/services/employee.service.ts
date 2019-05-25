@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Users } from '../classes/users';
+import { Users } from 'src/app/classes/users';
 import { Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Credentials } from '../classes/credentials';
@@ -10,7 +10,7 @@ import { Credentials } from '../classes/credentials';
 })
 export class EmployeeService {
 
-  listUsers: Array<Users> = [];
+  listUsers;
 
   constructor(private httpClient: HttpClient) { }
 
@@ -19,15 +19,15 @@ export class EmployeeService {
       observe: 'response'
     }).subscribe(response => {
       const user = JSON.stringify(response.body);
-      console.log(user);
       this.listUsers = JSON.parse(user);
     }, err => {
       console.log(err);
     });
   }
 
-  deleteUser(user: Users): void {
-    this.httpClient.delete('http://localhost:8081/people/' + user.userid, {
+  deleteUser(user): void {
+    console.log(user);
+    this.httpClient.delete('http://localhost:8081/people/' + user.user_id, {
       observe: 'response'
     }).subscribe(response => {
       console.log(response.body);

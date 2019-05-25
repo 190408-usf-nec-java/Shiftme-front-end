@@ -22,7 +22,7 @@ export class EmployeeListComponent implements OnInit {
     }
     this.employeeService.getAllUsers();
   }
-  delete(user: Users) {
+  delete(user) {
     this.employeeService.deleteUser(user);
     this.router.navigateByUrl('employee');
   }

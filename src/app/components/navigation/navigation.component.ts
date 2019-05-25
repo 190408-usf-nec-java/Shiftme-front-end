@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { LoginService } from 'src/app/services/login.service';
 import { CookieService } from 'ngx-cookie-service';
-
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -17,7 +17,7 @@ import { CookieService } from 'ngx-cookie-service';
 export class NavigationComponent implements OnInit {
 
 
-  constructor(private cookieService: CookieService) { }
+  constructor(private cookieService: CookieService, private loginService: LoginService, private router: Router) { }
 
 
 
@@ -36,5 +36,10 @@ export class NavigationComponent implements OnInit {
       }
   }
 
+  logOut() {
+    this.loginService.currentUser = null;
+    console.log('Logged off');
+    this.loginService.logOff();
+  }
 
 }

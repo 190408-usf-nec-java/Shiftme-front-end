@@ -16,9 +16,11 @@
         <input type="text" class="form-control" [(ngModel)]="user.email" [ngModelOptions]="{standalone: true}" required>
       </div>
 
-      <div class="form-group">
-        <label for="alterEgo">Role</label>
-        <input type="text" class="form-control" [(ngModel)]="user.role" [ngModelOptions]="{standalone: true}" required>
+      <div class="radio">
+        <label><input type="radio" name="optradio" [(ngModel)]="user.role" value="1" [ngModelOptions]="{standalone: true}" checked>Employee</label>
+      </div>
+      <div class="radio">
+        <label><input type="radio" name="optradio" [(ngModel)]="user.role" value="2" [ngModelOptions]="{standalone: true}">Manager</label>
       </div>
 
       <div class="form-group">
