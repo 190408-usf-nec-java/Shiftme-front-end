@@ -526,7 +526,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container\">\r\n    <h1>New Employee</h1>\r\n    <form (ngSubmit)=\"onSubmit()\">\r\n      <div class=\"form-group\">\r\n        <label for=\"name\">First Name</label>\r\n        <input type=\"text\" class=\"form-control\" [(ngModel)]=\"user.firstName\" [ngModelOptions]=\"{standalone: true}\" required>\r\n      </div>\r\n \r\n      <div class=\"form-group\">\r\n        <label for=\"alterEgo\">Last Name</label>\r\n        <input type=\"text\" class=\"form-control\" [(ngModel)]=\"user.lastName\" [ngModelOptions]=\"{standalone: true}\" required>\r\n      </div>\r\n\r\n      <div class=\"form-group\">\r\n        <label for=\"alterEgo\">Email</label>\r\n        <input type=\"text\" class=\"form-control\" [(ngModel)]=\"user.email\" [ngModelOptions]=\"{standalone: true}\" required>\r\n      </div>\r\n\r\n      <div class=\"radio\">\r\n        <label><input type=\"radio\" name=\"optradio\" [(ngModel)]=\"user.role\" value=\"1\" [ngModelOptions]=\"{standalone: true}\" checked>Employee</label>\r\n      </div>\r\n      <div class=\"radio\">\r\n        <label><input type=\"radio\" name=\"optradio\" [(ngModel)]=\"user.role\" value=\"2\" [ngModelOptions]=\"{standalone: true}\">Manager</label>\r\n      </div>\r\n\r\n      <div class=\"form-group\">\r\n        <label for=\"alterEgo\">Username</label>\r\n        <input type=\"text\" class=\"form-control\" [(ngModel)]=\"username\" [ngModelOptions]=\"{standalone: true}\" required>\r\n      </div>\r\n\r\n      <div class=\"form-group\">\r\n        <label for=\"alterEgo\">Password</label>\r\n        <input type=\"password\" class=\"form-control\" [(ngModel)]=\"password\" [ngModelOptions]=\"{standalone: true}\" required>\r\n      </div>\r\n\r\n      <div class=\"form-group\">\r\n        <label for=\"alterEgo\">Confirm Password</label>\r\n        <input type=\"password\" class=\"form-control\" [(ngModel)]=\"passwordConfirmation\" [ngModelOptions]=\"{standalone: true}\" required>\r\n      </div>\r\n \r\n      <!-- <button type=\"submit\" [disabled]=\"!formValidation()\" class=\"btn btn-success\">Submit</button> -->\r\n      <button type=\"submit\" class=\"btn btn-success\">Submit</button>\r\n \r\n    </form>\r\n    \r\n</div>"
+module.exports = "<div class=\"container\">\r\n    <h1>New Employee</h1>\r\n    <form (ngSubmit)=\"onSubmit()\">\r\n      <div class=\"form-group\">\r\n        <label for=\"name\">First Name</label>\r\n        <input type=\"text\" class=\"form-control\" [(ngModel)]=\"user.firstName\" [ngModelOptions]=\"{standalone: true}\" required>\r\n      </div>\r\n \r\n      <div class=\"form-group\">\r\n        <label for=\"alterEgo\">Last Name</label>\r\n        <input type=\"text\" class=\"form-control\" [(ngModel)]=\"user.lastName\" [ngModelOptions]=\"{standalone: true}\" required>\r\n      </div>\r\n\r\n      <div class=\"form-group\">\r\n        <label for=\"alterEgo\">Email</label>\r\n        <input type=\"text\" class=\"form-control\" [(ngModel)]=\"user.email\" [ngModelOptions]=\"{standalone: true}\" required>\r\n      </div>\r\n\r\n      <div class=\"radio\">\r\n        <label><input type=\"radio\" name=\"optradio\" [(ngModel)]=\"user.role\" value=\"1\" [ngModelOptions]=\"{standalone: true}\" checked>Employee</label>\r\n      </div>\r\n      <div class=\"radio\">\r\n        <label><input type=\"radio\" name=\"optradio\" [(ngModel)]=\"user.role\" value=\"2\" [ngModelOptions]=\"{standalone: true}\">Manager</label>\r\n      </div>\r\n\r\n      <div class=\"form-group\">\r\n        <label for=\"alterEgo\">Username</label>\r\n        <input type=\"text\" class=\"form-control\" [(ngModel)]=\"username\" [ngModelOptions]=\"{standalone: true}\" required>\r\n        <div *ngIf = \"employeeService.nonUniqueUsername\" class=\"alert alert-danger\" role=\"alert\">\r\n          Username taken.\r\n        </div>\r\n      </div>\r\n\r\n      <div class=\"form-group\">\r\n        <label for=\"alterEgo\">Password</label>\r\n        <input type=\"password\" class=\"form-control\" [(ngModel)]=\"password\" [ngModelOptions]=\"{standalone: true}\" required>\r\n      </div>\r\n\r\n      <div class=\"form-group\">\r\n        <label for=\"alterEgo\">Confirm Password</label>\r\n        <input type=\"password\" class=\"form-control\" [(ngModel)]=\"passwordConfirmation\" [ngModelOptions]=\"{standalone: true}\" required>\r\n      </div>\r\n \r\n      <button type=\"submit\" [disabled]=\"!formValidation()\" class=\"btn btn-success\">Submit</button>\r\n\r\n      <!-- <button (click)=\"sampleUserSubmit()\" class=\"btn btn-success\">SampleUserSubmit</button> -->\r\n    </form>\r\n    \r\n</div>"
 
 /***/ }),
 
@@ -569,9 +569,14 @@ var EmployeeCreateComponent = /** @class */ (function () {
             this.router.navigateByUrl('login');
         }
     };
-    EmployeeCreateComponent.prototype.onSubmit = function () {
+    EmployeeCreateComponent.prototype.sampleUserSubmit = function () {
         var deleteMe = new src_app_classes_credentials__WEBPACK_IMPORTED_MODULE_3__["Credentials"]('cmCM11!!1', '', 'charlesManson', new src_app_classes_users__WEBPACK_IMPORTED_MODULE_2__["Users"]('Charles', 'Manson', 'cm@hotmail.com', 1, -1));
         this.employeeService.createUser(deleteMe);
+        this.router.navigateByUrl('employee');
+    };
+    EmployeeCreateComponent.prototype.onSubmit = function () {
+        var credentials = new src_app_classes_credentials__WEBPACK_IMPORTED_MODULE_3__["Credentials"](this.password, '', this.username, this.user);
+        this.employeeService.createUser(credentials);
         this.router.navigateByUrl('employee');
     };
     EmployeeCreateComponent.prototype.formValidation = function () {
@@ -738,10 +743,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var src_app_services_login_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/services/login.service */ "./src/app/services/login.service.ts");
-/* harmony import */ var src_app_classes_users__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/classes/users */ "./src/app/classes/users.ts");
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
-/* harmony import */ var ngx_cookie_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ngx-cookie-service */ "./node_modules/ngx-cookie-service/index.js");
-
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var ngx_cookie_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ngx-cookie-service */ "./node_modules/ngx-cookie-service/index.js");
 
 
 
@@ -758,8 +761,6 @@ var LoginComponent = /** @class */ (function () {
     }
     LoginComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.loginService.currentUser = new src_app_classes_users__WEBPACK_IMPORTED_MODULE_3__["Users"]('Amna', null, null, 2, 1, null);
-        console.log(this.loginService.currentUser.role);
         this.loginResponse = this.loginService.$loginStatus.subscribe(function (status) {
             if (status === 200) {
             }
@@ -767,7 +768,6 @@ var LoginComponent = /** @class */ (function () {
                 _this.lastStatus = status;
             }
         });
-        //this.loginService.currentUser = new Users('Amna', null,null,null,1,null);
     };
     LoginComponent.prototype.ngOnDestroy = function () {
         if (this.loginResponse) {
@@ -819,7 +819,7 @@ var LoginComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./login.component.html */ "./src/app/components/login/login.component.html"),
             styles: [__webpack_require__(/*! ./login.component.css */ "./src/app/components/login/login.component.css")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [src_app_services_login_service__WEBPACK_IMPORTED_MODULE_2__["LoginService"], _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"], ngx_cookie_service__WEBPACK_IMPORTED_MODULE_5__["CookieService"]])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [src_app_services_login_service__WEBPACK_IMPORTED_MODULE_2__["LoginService"], _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"], ngx_cookie_service__WEBPACK_IMPORTED_MODULE_4__["CookieService"]])
     ], LoginComponent);
     return LoginComponent;
 }());
@@ -1474,63 +1474,21 @@ var ShiftsComponent = /** @class */ (function () {
         var i = 0;
         Object.getOwnPropertyNames(map).forEach(function (day) {
             if (i < array.length) {
-                console.log(map[array[i].name]);
+                //console.log(map[array[i].name]);
                 // map[array[i].name] = array[i];
-                if (array[i].shifts[0].employees !== null) {
-                    console.log(array[i].name);
-                }
+                map[array[i].name] = array[i];
                 i++;
             }
         });
-        console.log(map);
-        // array.push(map.get('MONDAY'));
-        // array.push(map.get('TUESDAY'));
-        // return map;
+        //console.log(map);
+        return map;
     };
     ShiftsComponent.prototype.submitWeek = function () {
-        console.log('hey there');
-        // let week: Week;
-        console.log(this.daysAsList);
-        console.log(this.currentWeek);
-        this.convertToMap(this.daysAsList, this.currentWeek.days);
-        // this.shiftService.sendUpdatedWeek(week);
+        var days = this.convertToMap(this.daysAsList, this.currentWeek.days);
+        this.currentWeek.days = days;
+        this.shiftService.sendUpdatedWeek(this.currentWeek);
     };
-    // 768 is small breakpoint for bootstrap
-    /*genEmptyWeek(): Week {
-      const days = new Array<Day>();
-      for (let i = 0; i < 7; i++) {
-        days.push(new Day(new Date(Date.now()), new Array<Shift>()));
-      }
-      return new Week(days,  1, new Date(''));
-    }*/
     ShiftsComponent.prototype.genSampleData = function () {
-        /*let bob = new Users('Bob', 'Sather', 'bobsather@gmail.com', 'employee', 1,
-          new Credentials('billyboy', 'aoishgoihsgohap dhgap0sygsadgh', 'bobsath'));
-        let martha = new Users('Martha', 'Stuart', 'martha@margo.wiz', 'employee', 2,
-          new Credentials('cookingiscool', 'aosihgoisahdpgoihaspdoigh', 'marthathecook'));
-        let monty = new Users('Monty', 'Python', 'monty@python.com', 'employee', 3,
-          new Credentials('hamsterparty', 'aosihgoisahdpgoihaspdoigh', 'montypython'));
-        let james = new Users('James', 'Bond', 'bonejamesbond@bond.com', 'employee', 4,
-          new Credentials('shakennotstirred', 'aosihgoisahdpgoihaspdoigh', 'jamesbond'));*/
-        var shift = new src_app_classes_shift__WEBPACK_IMPORTED_MODULE_4__["Shift"](1, 0, 0, null, 2, true);
-        /*let nshift = new Shift(3, 3, 16, emps2, 2);
-        let sshift = new Shift(2, 17, 20, emps2, 2);
-        let tshift = new Shift(0, 1, 9, emps, 2);*/
-        var shifts1 = new Array(shift);
-        /*let shifts2 = new Array<Shift>(nshift);
-        let shifts3 = new Array<Shift>(sshift, fShift, tshift);
-        let shifts4 = new Array<Shift>(nshift);
-        let shifts5 = new Array<Shift>(sshift, fShift, tshift);
-        let shifts6 = new Array<Shift>(sshift, fShift, tshift);
-        let shifts7 = new Array<Shift>(sshift, fShift, tshift);*/
-        /*let monday = new Day(new Date('5/6/2019'), shifts1);
-        let tuesday = new Day(new Date('5/7/2019'), shifts1);
-        let wednesday = new Day(new Date('5/8/2019'), shifts1);
-        let thursday = new Day(new Date('5/9/2019'), shifts1);
-        let friday = new Day(new Date('5/10/2019'), shifts1);
-        let saturday = new Day(new Date('5/11/2019'), shifts1);
-        let sunday = new Day(new Date('5/12/2019'), shifts1);*/
-        //let days = new Map<string, Day>('MONDAY', monday, tuesday, wednesday, thursday, friday, saturday, sunday);
         var week = new src_app_classes_week__WEBPACK_IMPORTED_MODULE_2__["Week"](/*days*/ null, 1, new Date(Date.now()));
         return week;
     };
@@ -1806,13 +1764,17 @@ var EmployeeService = /** @class */ (function () {
             if (index > -1) {
                 _this.listUsers.splice(index, 1);
             }
+            return true;
         }, function (err) {
             console.log(err);
+            if (err.status === 403) {
+                return false;
+            }
         });
+        return null;
     };
     EmployeeService.prototype.createUser = function (cred) {
         var _this = this;
-        console.log(cred);
         this.httpClient.post('http://localhost:8081/cred/create', cred, {
             observe: 'response'
         }).subscribe(function (response) {
@@ -1820,6 +1782,7 @@ var EmployeeService = /** @class */ (function () {
             console.log(user);
             _this.listUsers.push(JSON.parse(user));
         }, function (err) {
+            console.log('Error thrown');
             console.log(err);
         });
     };
@@ -2026,7 +1989,7 @@ var ShiftService = /** @class */ (function () {
     };
     ShiftService.prototype.sendUpdatedWeek = function (week) {
         var _this = this;
-        this.httpClient.post('http://localhost:8081/week', week, {
+        this.httpClient.put('http://localhost:8081/week', week, {
             observe: 'response',
         }).subscribe(function (response) {
             if (response.status === 200) {

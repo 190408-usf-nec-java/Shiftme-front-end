@@ -25,7 +25,7 @@ export class EmployeeService {
     });
   }
 
-  deleteUser(user): void {
+  deleteUser(user): boolean {
     console.log(user);
     this.httpClient.delete('http://localhost:8081/people/' + user.user_id, {
       observe: 'response'
@@ -35,13 +35,18 @@ export class EmployeeService {
       if (index > -1) {
         this.listUsers.splice(index, 1);
       }
+      return true;
     }, err => {
       console.log(err);
+      if (err.status === 403)
+      {
+        return false;
+      }
     });
+    return null;
   }
 
   createUser(cred: Credentials) {
-    console.log(cred);
     this.httpClient.post('http://localhost:8081/cred/create', cred, {
       observe: 'response'
     }).subscribe(response => {
@@ -49,6 +54,7 @@ export class EmployeeService {
       console.log(user);
       this.listUsers.push(JSON.parse(user));
     }, err => {
+      console.log('Error thrown');
       console.log(err);
     });
   }

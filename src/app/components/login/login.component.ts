@@ -18,8 +18,6 @@ export class LoginComponent implements OnInit {
   constructor(private loginService: LoginService, private router: Router, private cookieService: CookieService) { }
 
   ngOnInit() {
-    this.loginService.currentUser = new Users('Amna', null,null,2,1,null);
-    console.log(this.loginService.currentUser.role);
     this.loginResponse = this.loginService.$loginStatus.subscribe(status => {
       if (status === 200) {
         
@@ -27,7 +25,6 @@ export class LoginComponent implements OnInit {
         this.lastStatus = status;
       }
     });
-    //this.loginService.currentUser = new Users('Amna', null,null,null,1,null);
   }
 
   ngOnDestroy() {

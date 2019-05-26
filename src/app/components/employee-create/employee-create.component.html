@@ -26,6 +26,9 @@
       <div class="form-group">
         <label for="alterEgo">Username</label>
         <input type="text" class="form-control" [(ngModel)]="username" [ngModelOptions]="{standalone: true}" required>
+        <div *ngIf = "employeeService.nonUniqueUsername" class="alert alert-danger" role="alert">
+          Username taken.
+        </div>
       </div>
 
       <div class="form-group">
@@ -38,9 +41,9 @@
         <input type="password" class="form-control" [(ngModel)]="passwordConfirmation" [ngModelOptions]="{standalone: true}" required>
       </div>
  
-      <!-- <button type="submit" [disabled]="!formValidation()" class="btn btn-success">Submit</button> -->
-      <button type="submit" class="btn btn-success">Submit</button>
- 
+      <button type="submit" [disabled]="!formValidation()" class="btn btn-success">Submit</button>
+
+      <!-- <button (click)="sampleUserSubmit()" class="btn btn-success">SampleUserSubmit</button> -->
     </form>
     
 </div>

@@ -25,17 +25,23 @@ export class EmployeeCreateComponent implements OnInit {
     }
   }
 
-  onSubmit() {
+  sampleUserSubmit() {
     const deleteMe: Credentials = new Credentials('cmCM11!!1', '', 'charlesManson', new Users('Charles', 'Manson', 'cm@hotmail.com', 1, -1));
     this.employeeService.createUser(deleteMe);
+    this.router.navigateByUrl('employee');
+  }
+
+  onSubmit() {
+    const credentials: Credentials = new Credentials(this.password, '', this.username, this.user);
+    this.employeeService.createUser(credentials);
     this.router.navigateByUrl('employee');
   }
 
   formValidation(): boolean {
     this.usernameTrim();
     return this.passwordLengthValidation() &&
-            this.passwordsMatch() &&
-            this.usernameLengthValidation();
+      this.passwordsMatch() &&
+      this.usernameLengthValidation();
   }
 
   passwordLengthValidation(): boolean {
