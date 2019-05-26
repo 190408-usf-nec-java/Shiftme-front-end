@@ -30,7 +30,7 @@ export class ShiftService {
     });
   }
   // This method is only run on component init
-  public fetchCurrentWeekByUser(id: number) {
+  public fetchCurrentWeekById(id: number) {
     this.httpClient.get(`http://localhost:8081/week/${id}`, {
       observe: 'response',
     }).pipe(map(response => response.body as Week))
