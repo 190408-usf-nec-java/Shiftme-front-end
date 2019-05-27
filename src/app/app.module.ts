@@ -12,6 +12,13 @@ import { NavigationComponent } from './components/navigation/navigation.componen
 import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { SignupPipe } from './pipes/signup.pipe';
 import { TrimPipePipe } from './pipes/trim-pipe.pipe';
+import { EmployeeCreateComponent } from './components/employee-create/employee-create.component';
+import { EmployeeListComponent } from './components/employee-list/employee-list.component';
+import { BuisnessPageComponent } from './components/buisness-page/buisness-page.component';
+import { ShiftsComponent } from './components/shifts/shifts.component';
+import { ModalModule } from 'ngx-bootstrap/modal';
+import { ShiftpoolComponent } from './components/shiftpool/shiftpool.component';
+import { ShiftConfigComponent } from './components/shift-config/shift-config.component';
 
 
 @NgModule({
@@ -21,14 +28,21 @@ import { TrimPipePipe } from './pipes/trim-pipe.pipe';
     SignupComponent,
     NavigationComponent,
     SignupPipe,
-    TrimPipePipe
+    TrimPipePipe,
+    EmployeeCreateComponent,
+    EmployeeListComponent,
+    ShiftsComponent,
+    BuisnessPageComponent,
+    ShiftpoolComponent,
+    ShiftConfigComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    CollapseModule
+    CollapseModule,
+    ModalModule.forRoot()
   ],
   providers: [CookieService],
   bootstrap: [AppComponent]

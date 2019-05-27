@@ -1,0 +1,69 @@
+.day{
+    height: 72vh;
+    width: 100%;
+    margin: 0 1px;
+}
+.shift {
+    width: 100%;
+    background-color: #aaa;
+    border: solid 1px #fff;
+    box-sizing: border-box;
+}
+.shift:hover {
+    background-color: #888;
+    box-shadow: 3px 3px 3px #666;
+}
+.day-date{
+    width: 100%;
+}
+.emps-list {
+    list-style: none;
+    padding-left: 2px;
+}
+.emps {
+    color: #fff;
+    text-decoration: none;
+}
+.hours{
+    height: 72vh;
+}
+.empty{
+    background: none !important;
+}
+.empty:hover {
+    box-shadow: none !important;
+}
+.hours>table>tbody>tr>td {
+    font-size: .7rem;
+    box-sizing: border-box;
+    color: #fff;
+}
+.hours>table>tbody>tr {
+    border-top: solid 1px #fff;
+}
+.hours>table {
+    height: 100%;
+}
+.hours>table>tbody {
+    height: 100%;
+}
+.lasttr{
+    border-bottom: solid 1px #fff;
+}
+@media (min-width: 576px) {
+    
+}
+@media (min-width: 768px) { 
+    .day{
+        width: 14.7%;
+    }
+    .day-date{
+        width: 14.7%;
+    }
+}
+@media (min-width: 992px) {
+
+}
+@media (min-width: 1200px) {
+
+}

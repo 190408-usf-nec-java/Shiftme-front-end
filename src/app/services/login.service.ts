@@ -3,7 +3,7 @@ import { Observable, Subject } from 'rxjs';
 import { HttpClient, HttpResponse, HttpHeaders } from '@angular/common/http';
 import { CookieService } from 'ngx-cookie-service';
 import { map } from 'rxjs/operators';
-import { User } from '../classes/user';
+import { Users } from '../classes/users';
 
 @Injectable({
   providedIn: 'root'
@@ -11,26 +11,27 @@ import { User } from '../classes/user';
 export class LoginService {
   private loginStatusSubject = new Subject<number>();
   public  $loginStatus = this.loginStatusSubject.asObservable();
-  currentUser: User;
+  currentUser: Users;
   constructor(private httpClient: HttpClient, private cookieService: CookieService) { }
-
+  
   username: string;
   password: string;
-  private loggedIn: boolean;
+  private loggedIn = false;
 
   login(username: string, password: string): void {
     const payload = {
       username: username,
       password: password
     }
-    this.httpClient.post('http://localhost:8080/ex/login', payload, {
+    this.httpClient.post('http://localhost:8081/cred/login', payload, {
       observe: 'response',
-      }).pipe(map(response => response.body as User))
+      }).pipe(map(response => response.body as Users))
       .subscribe(response => {
-        this.loginStatusSubject.next(200);
         this.currentUser = response;
-        // add cookies here
-        console.log(this.currentUser);
+        console.log(this.currentUser.token);
+        this.cookieService.set('role', this.currentUser.role.toString());
+        this.loggedIn = true;
+        this.loginStatusSubject.next(200);
       }, err => {
         this.loginStatusSubject.next(err.status);
       });
@@ -38,7 +39,8 @@ export class LoginService {
   getLoggedIn(): boolean {
     return this.loggedIn;
   }
-  setLoggedIn(loggedIn: boolean) {
-    this.loggedIn = loggedIn;
+
+  logOff() {
+    this.loggedIn = false;
   }
 }

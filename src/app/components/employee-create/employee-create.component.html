@@ -1,0 +1,46 @@
+<div class="container">
+    <h1>New Employee</h1>
+    <form (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="name">First Name</label>
+        <input type="text" class="form-control" [(ngModel)]="user.firstName" [ngModelOptions]="{standalone: true}" required>
+      </div>
+ 
+      <div class="form-group">
+        <label for="alterEgo">Last Name</label>
+        <input type="text" class="form-control" [(ngModel)]="user.lastName" [ngModelOptions]="{standalone: true}" required>
+      </div>
+
+      <div class="form-group">
+        <label for="alterEgo">Email</label>
+        <input type="text" class="form-control" [(ngModel)]="user.email" [ngModelOptions]="{standalone: true}" required>
+      </div>
+
+      <div class="radio">
+        <label><input type="radio" name="optradio" [(ngModel)]="user.role" value="1" [ngModelOptions]="{standalone: true}" checked>Employee</label>
+      </div>
+      <div class="radio">
+        <label><input type="radio" name="optradio" [(ngModel)]="user.role" value="2" [ngModelOptions]="{standalone: true}">Manager</label>
+      </div>
+
+      <div class="form-group">
+        <label for="alterEgo">Username</label>
+        <input type="text" class="form-control" [(ngModel)]="username" [ngModelOptions]="{standalone: true}" required>
+      </div>
+
+      <div class="form-group">
+        <label for="alterEgo">Password</label>
+        <input type="password" class="form-control" [(ngModel)]="password" [ngModelOptions]="{standalone: true}" required>
+      </div>
+
+      <div class="form-group">
+        <label for="alterEgo">Confirm Password</label>
+        <input type="password" class="form-control" [(ngModel)]="passwordConfirmation" [ngModelOptions]="{standalone: true}" required>
+      </div>
+ 
+      <!-- <button type="submit" [disabled]="!formValidation()" class="btn btn-success">Submit</button> -->
+      <button type="submit" class="btn btn-success">Submit</button>
+ 
+    </form>
+    
+</div>
