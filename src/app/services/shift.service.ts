@@ -6,6 +6,7 @@ import { Users } from '../classes/users';
 import { Credentials } from '../classes/credentials';
 import { Subject } from 'rxjs';
 import { UserDTO } from '../classes/user-dto';
+import { Env } from '../classes/env';
 
 @Injectable({
   providedIn: 'root'
@@ -17,9 +18,9 @@ export class ShiftService {
   private employees: Array<Credentials>;
   private shiftStatusSubject = new Subject<number>();
   public  $shiftStatus = this.shiftStatusSubject.asObservable();
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient, private env: Env) { }
 
-  private fetchNextWeek(currentWeek: Week): void {
+  /*private fetchNextWeek(currentWeek: Week): void {
     this.httpClient.get(`http://localhost:8080/week/${currentWeek.startDate}`, {
       observe: 'response',
     }).pipe(map(response => response.body as Week))
@@ -29,10 +30,10 @@ export class ShiftService {
     }, err => {
       // this.loginStatusSubject.next(err.status);
     });
-  }
+  }*/
   // This method is only run on component init
   public fetchCurrentWeekById(id: number) {
-    this.httpClient.get(`http://localhost:8081/week/${id}`, {
+    this.httpClient.get(this.env.getProdUrl() + `/week/${id}`, {
       observe: 'response',
     }).pipe(map(response => response.body as Week))
     .subscribe(response => {
@@ -44,7 +45,7 @@ export class ShiftService {
       this.shiftStatusSubject.next(err.status);
     });
   }
-  private fetchPreviousWeek(currentWeek: Week) {
+  /*private fetchPreviousWeek(currentWeek: Week) {
     this.httpClient.get(`http://localhost:8080/week/${currentWeek.startDate}`, {
       observe: 'response',
     }).pipe(map(response => response.body as Week))
@@ -54,9 +55,9 @@ export class ShiftService {
     }, err => {
       this.shiftStatusSubject.next(err.status);
     });
-  }
+  }*/
   sendUpdatedWeek(week: Week) {
-    this.httpClient.put('http://localhost:8081/week', week, {
+    this.httpClient.put(this.env.getProdUrl() + '/week', week, {
       observe: 'response',
     }).subscribe(response => {
       if (response.status === 200){
@@ -65,7 +66,7 @@ export class ShiftService {
     });
   }
   public fetchEmployees() {
-    this.httpClient.get('http://localhost:8081/cred', {
+    this.httpClient.get(this.env.getProdUrl + '/cred', {
       observe: 'response',
     }).pipe(map(response => response.body as Array<Credentials>))
     .subscribe(response => {
@@ -84,13 +85,13 @@ export class ShiftService {
   public gotoNextWeek(): void {
     this.previousWeek = this.currentWeek;
     this.currentWeek = this.nextWeek;
-    this.fetchNextWeek(this.currentWeek); // this method sets nextweek
+    //this.fetchNextWeek(this.currentWeek); // this method sets nextweek
   }
   // Iterates through saved weeks backwords
   public gotoPreviousWeek(): void {
     this.nextWeek = this.currentWeek;
     this.currentWeek = this.previousWeek;
-    this.fetchPreviousWeek(this.currentWeek); // this method sets previous week;
+    //this.fetchPreviousWeek(this.currentWeek); // this method sets previous week;
   }
   public getEmployees(): Array<Credentials> {
     return this.employees;

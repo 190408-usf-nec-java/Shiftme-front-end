@@ -4,6 +4,7 @@ import { Users } from 'src/app/classes/users';
 import { Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Credentials } from '../classes/credentials';
+import { Env } from '../classes/env';
 
 @Injectable({
   providedIn: 'root'
@@ -12,10 +13,10 @@ export class EmployeeService {
 
   listUsers;
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient, private env: Env) { }
 
   getAllUsers() {
-    this.httpClient.get('http://localhost:8081/people', {
+    this.httpClient.get(this.env.getProdUrl() + '/people', {
       observe: 'response'
     }).subscribe(response => {
       const user = JSON.stringify(response.body);
@@ -27,7 +28,7 @@ export class EmployeeService {
 
   deleteUser(user): boolean {
     console.log(user);
-    this.httpClient.delete('http://localhost:8081/people/' + user.user_id, {
+    this.httpClient.delete(this.env.getProdUrl() + '/people/' + user.user_id, {
       observe: 'response'
     }).subscribe(response => {
       console.log(response.body);
@@ -47,7 +48,7 @@ export class EmployeeService {
   }
 
   createUser(cred: Credentials) {
-    this.httpClient.post('http://localhost:8081/cred/create', cred, {
+    this.httpClient.post(this.env.getProdUrl() + '/cred/create', cred, {
       observe: 'response'
     }).subscribe(response => {
       const user = JSON.stringify(response.body);

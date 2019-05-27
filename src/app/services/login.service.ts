@@ -4,6 +4,7 @@ import { HttpClient, HttpResponse, HttpHeaders } from '@angular/common/http';
 import { CookieService } from 'ngx-cookie-service';
 import { map } from 'rxjs/operators';
 import { Users } from '../classes/users';
+import { Env } from '../classes/env';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,7 @@ export class LoginService {
   private loginStatusSubject = new Subject<number>();
   public  $loginStatus = this.loginStatusSubject.asObservable();
   currentUser: Users;
-  constructor(private httpClient: HttpClient, private cookieService: CookieService) { }
+  constructor(private httpClient: HttpClient, private cookieService: CookieService, private env: Env) { }
   
   username: string;
   password: string;
@@ -23,7 +24,7 @@ export class LoginService {
       username: username,
       password: password
     }
-    this.httpClient.post('http://localhost:8081/cred/login', payload, {
+    this.httpClient.post(this.env.getProdUrl() + '/cred/login', payload, {
       observe: 'response',
       }).pipe(map(response => response.body as Users))
       .subscribe(response => {
