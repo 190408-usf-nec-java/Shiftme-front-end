@@ -2,7 +2,7 @@
   <button class="d-lg-none btn btn-outline-secondary" (click)="isCollapsed = !isCollapsed"
     [attr.aria-expanded]="!isCollapsed" aria-controls="nabvar-content">
     <img class="navbar-toggler-icon" alt="navigation menu" src="./assets/img/hamburger.png"></button>
-  <div id="navbar-content" class="d-none d-lg-block">
+  <div *ngIf="loginService.getLoggedIn()" id="navbar-content" class="d-none d-lg-block">
     <ul class="navbar-nav">
       <li class="nav-item">
         <a routerLink="shifts" class="nav-link text-white hover-light">Schedule</a>
@@ -18,7 +18,7 @@
       </li>
     </ul>
   </div>
-  <div [collapse]="!isCollapsed" id="navbar-content" class="d-lg-none">
+  <div  *ngIf="loginService.getLoggedIn()" [collapse]="!isCollapsed" id="navbar-content" class="d-lg-none">
     <ul class="navbar-nav">
       <li class="nav-item">
         <a routerLink="shifts" class="nav-link text-white hover-light">Schedule</a>
