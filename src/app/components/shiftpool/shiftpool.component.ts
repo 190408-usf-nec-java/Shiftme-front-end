@@ -53,7 +53,7 @@ export class ShiftpoolComponent implements OnInit {
     } else {
       this.weekOrDay = 'Week';
     }
-    this.shiftService.setEmployees();
+    this.shiftService.fetchEmployees();
     this.currentEmployees = this.shiftService.getEmployees();
     console.log(this.currentEmployees);
   }

@@ -5,6 +5,7 @@ import { map } from 'rxjs/internal/operators/map';
 import { Users } from '../classes/users';
 import { Credentials } from '../classes/credentials';
 import { Subject } from 'rxjs';
+import { UserDTO } from '../classes/user-dto';
 
 @Injectable({
   providedIn: 'root'
@@ -30,7 +31,7 @@ export class ShiftService {
     });
   }
   // This method is only run on component init
-  public fetchCurrentWeekByUser(id: number) {
+  public fetchCurrentWeekById(id: number) {
     this.httpClient.get(`http://localhost:8081/week/${id}`, {
       observe: 'response',
     }).pipe(map(response => response.body as Week))
@@ -63,6 +64,19 @@ export class ShiftService {
       }
     });
   }
+  public fetchEmployees() {
+    this.httpClient.get('http://localhost:8081/cred', {
+      observe: 'response',
+    }).pipe(map(response => response.body as Array<Credentials>))
+    .subscribe(response => {
+      console.log('response:'); // Testing to make sure this is working
+      console.log(response);
+      this.employees = response;
+      this.shiftStatusSubject.next(201); // yes I know this isn't good practice, but we need this to work right now
+    }, err => {
+      this.shiftStatusSubject.next(err.status);
+    });
+  }
   public getCurrentWeek(): Week {
     return this.currentWeek;
   }
@@ -81,7 +95,7 @@ export class ShiftService {
   public getEmployees(): Array<Credentials> {
     return this.employees;
   }
-  public setEmployees(): void {
+  /*public setEmployees(): void {
     const bob = new Credentials('billyboy', 'aoishgoihsgohap dhgap0sygsadgh', 'bobsath',
                 new Users('Bob', 'Sather', 'bobsather@gmail.com', 2 ,  1));
     const martha = new Credentials('cookingiscool', 'aosihgoisahdpgoihaspdoigh', 'marthathecook', 
@@ -91,5 +105,5 @@ export class ShiftService {
     const james = new Credentials('shakennotstirred', 'aosihgoisahdpgoihaspdoigh', 'jamesbond',
                   new Users('James', 'Bond', 'bonejamesbond@bond.com', 2, 4));
     this.employees = new Array<Credentials>(bob, martha, monty, james);
-  }
+  }*/
 }

@@ -159,12 +159,18 @@
       <div class="modal-body">
         <div class="col-12">Start Time: {{ clickedShift.startHour }}</div>
         <div class="col-12">End Time: {{ clickedShift.endHour }}</div>
-        <div *ngFor="let employee of clickedShift.employees" class="col-12 d-flex justify-content-between">
-          Employee: {{ employee.username }}
-          <button *ngIf="isitEditMode()" (click)="delete(employee.username)" class="btn btn-danger">Delete</button>
+        <div class="col-12">
+          <p class="col-12">Assigned Employees:</p>
+          <ul class="col-12 emps-list">
+            <li class="col-12 emps d-flex justify-content-between bg-secondary" *ngFor="let employee of clickedShift.employees">
+              {{ employee.username }}
+              <button *ngIf="isitEditMode()" (click)="delete(employee.username)" class="btn btn-danger">Delete</button>
+            </li>
+          </ul> 
         </div>
         <div class="form-group" *ngIf="isManager() && isitEditMode()">
           <select (change)="changeEmployee($event)" class="form-control">
+            <option selected="selected"> </option>
             <option [style.display]="employeeIsAlreadyAssigned(employee)"
               *ngFor="let employee of currentEmployees">
               {{ employee.username }}
@@ -177,6 +183,6 @@
     </ng-template>
   </div>
   <div class="d-flex justify-content-center col-12">
-    <button class="btn btn-success" (click)="submitWeek()" [disabled]="!isChanged()">Yoyoyoyo</button>
+    <button class="btn btn-success" (click)="submitWeek()" [disabled]="!isChanged()">Submit</button>
   </div>
 </section>

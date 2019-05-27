@@ -36,6 +36,7 @@ export class ShiftsComponent implements OnInit {
               private router: Router) { }
 
   ngOnInit() {
+
     if (!this.loginService.getLoggedIn()) {
       this.router.navigateByUrl('login');
     }
@@ -49,11 +50,14 @@ export class ShiftsComponent implements OnInit {
     }
     this.currentWeek = this.genSampleData();
     // this.daysAsList = this.convertToArray(this.currentWeek.days);
-    this.shiftService.fetchCurrentWeekByUser(2);
+    this.shiftService.fetchCurrentWeekById(25);
     this.shiftService.$shiftStatus.subscribe( status => {
       if (status === 200) {
         this.loaded = true;
         this.populateShifts();
+      } else if (status === 201) {
+        this.currentEmployees = this.shiftService.getEmployees();
+        console.log(this.currentEmployees);
       } else {
       }
     });
@@ -67,8 +71,7 @@ export class ShiftsComponent implements OnInit {
     this.daysAsList.forEach( day => {
       this.weekdays.push(this.formartToUsableDate(day.date));
     });
-    this.shiftService.setEmployees();
-    this.currentEmployees = this.shiftService.getEmployees();
+    this.shiftService.fetchEmployees();
   }
   openModal(template: TemplateRef<any>, shift: Shift) {
     this.clickedShift = shift;
@@ -196,20 +199,28 @@ export class ShiftsComponent implements OnInit {
         this.clickedShift.employees.splice(index, 1);
       }
     }
+    this.isitChanged = true;
   }
   isChanged(): boolean {
     return this.isitChanged;
   }
   convertToArray(map: any) {
-    let array = new Array<Day>();
-    Object.getOwnPropertyNames(map).forEach(day => {
+    const array = new Array<Day>();
+    array.push(map.MONDAY);
+    array.push(map.TUESDAY);
+    array.push(map.WEDNESDAY);
+    array.push(map.THURSDAY);
+    array.push(map.FRIDAY);
+    array.push(map.SATURDAY);
+    array.push(map.SUNDAY);
+    /*Object.getOwnPropertyNames(map).forEach(day => {
       array.push(map[day]);
-    });
+    });*/
     //array.push(map.get('MONDAY'));
     //array.push(map.get('TUESDAY'));
     return array;
   }
-  convertToMap(array: Array<Day>, map: any) {
+  convertToMap(array: Array<Day>, map: any): any {
     let i = 0;
     Object.getOwnPropertyNames(map).forEach(day => {
       if (i < array.length) {
@@ -223,13 +234,29 @@ export class ShiftsComponent implements OnInit {
     return map;
   }
   submitWeek() {
-    let days = this.convertToMap(this.daysAsList, this.currentWeek.days);
-    this.currentWeek.days = days;
+    let cleanDays = this.daysAsList;
+    cleanDays = this.removeFillerShifts(cleanDays);
+    const days = this.convertToMap(cleanDays, this.currentWeek.days);
+    const week = this.currentWeek;
+    week.days = days;
     this.shiftService.sendUpdatedWeek(this.currentWeek);
+    this.isitChanged = false;
+    this.daysAsList = this.generateFillerShifts(this.daysAsList);
   }
   genSampleData(): Week {
     let week = new Week(/*days*/ null, 1, new Date(Date.now()));
     return week;
+  }
+  removeFillerShifts(days: Array<Day>) {
+    days.forEach(day => {
+      day.shifts.forEach(shift => {
+        if (shift.isEmptyShift) {
+          const index = day.shifts.indexOf(shift);
+          day.shifts.splice(index, 1);
+        }
+      });
+    });
+    return days;
   }
 
 }
