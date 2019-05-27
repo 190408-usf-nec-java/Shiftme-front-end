@@ -11,23 +11,20 @@ import { Router } from '@angular/router';
   styleUrls: ['./shift-config.component.css']
 })
 export class ShiftConfigComponent implements OnInit {
-  @Input() shiftConfig: ShiftConfig = new ShiftConfig(null, null, null, new WeekDays(false, false, false, false, false, false, false) , null);
-  
-  sampleUser;
-  
-  constructor(private loginService: LoginService, private router: Router ,private shiftConfigService: ShiftConfigService) { }
+
+  @Input() shiftConfig: ShiftConfig = new ShiftConfig(null, null, null,
+                                      new WeekDays(false, false, false, false, false, false, false) , null);
+
+  constructor(private loginService: LoginService, private router: Router, private shiftConfigService: ShiftConfigService) { }
 
   ngOnInit() {
-   console.log(this.loginService.currentUser.role);
-    if (!this.loginService.getLoggedIn()) {
+   if (!this.loginService.getLoggedIn()) {
       this.router.navigateByUrl('login');
     }
-   console.log(this.loginService.currentUser.firstName);
-    this.sampleUser = new Users('Monty', 'Python', 'monty@python.org', 1, 1);
   }
 
   submit() {
-    this.shiftConfig.users = this.sampleUser;
+    this.shiftConfig.users = this.loginService.currentUser;
     this.shiftConfigService.postShiftConfig(this.shiftConfig);
   }
 

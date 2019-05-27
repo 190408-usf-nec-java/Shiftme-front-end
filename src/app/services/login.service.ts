@@ -28,7 +28,6 @@ export class LoginService {
       }).pipe(map(response => response.body as Users))
       .subscribe(response => {
         this.currentUser = response;
-        console.log(this.currentUser.token);
         this.cookieService.set('role', this.currentUser.role.toString());
         this.loggedIn = true;
         this.loginStatusSubject.next(200);

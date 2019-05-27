@@ -19,8 +19,6 @@ export class ShiftConfigService {
       observe: 'response',
       }).subscribe(response => {
         this.shiftConfigStatusSubject.next(200);
-        console.log('We made it');
-        console.log(payload);
       }, err => {
         this.shiftConfigStatusSubject.next(err.status);
       });
