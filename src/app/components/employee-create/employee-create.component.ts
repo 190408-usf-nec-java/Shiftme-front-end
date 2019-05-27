@@ -26,8 +26,9 @@ export class EmployeeCreateComponent implements OnInit {
   }
 
   onSubmit() {
-    const deleteMe: Credentials = new Credentials('cmCM11!!1', '', 'charlesManson', new Users('Charles', 'Manson', 'cm@hotmail.com', 1, -1));
-    this.employeeService.createUser(deleteMe);
+    //const deleteMe: Credentials = new Credentials(1, 'cmCM11!!1', '', 'charlesManson', 
+      //new Users('Charles', 'Manson', 'cm@hotmail.com', 1, 1));
+    //this.employeeService.createUser();
     this.router.navigateByUrl('employee');
   }
 
